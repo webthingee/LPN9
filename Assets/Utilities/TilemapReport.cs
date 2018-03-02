@@ -7,37 +7,26 @@ public class TilemapReport : MonoBehaviour
 {
     public List<RoomControl> roomsToEnd = new List<RoomControl>();
     public List<Vector3> pointsToEnd = new List<Vector3>();
-    public bool seekerIsMoving = true;
-    
-    void Start()
-    {
-    }
 
     void Update ()
     {
-        //CheckTilemap();
         if (!GetComponent<AILerp>().reachedEndOfPath)
         {
-            CheckTilemap();
+            CheckTilemap(); // @TODO IEnumerator?
         }
     }
 
     void CheckTilemap ()
     {
-        if (seekerIsMoving)
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 2f, 1 << LayerMask.NameToLayer("Walkable"));
+    
+        for (var i = 0; i < hitColliders.Length; i++)
         {
-            Debug.Log("Seeker Moving");
-            
-            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 2f, 1 << LayerMask.NameToLayer("Walkable"));
-        
-            for (var i = 0; i < hitColliders.Length; i++)
+            if (hitColliders[i].GetComponentInParent<RoomControl>() != null)
             {
-                if (hitColliders[i].GetComponentInParent<RoomControl>() != null)
-                {
-                    if (!roomsToEnd.Contains(hitColliders[i].GetComponentInParent<RoomControl>()))
-                        roomsToEnd.Add(hitColliders[i].GetComponentInParent<RoomControl>());
-                }            
-            }
+                if (!roomsToEnd.Contains(hitColliders[i].GetComponentInParent<RoomControl>()))
+                    roomsToEnd.Add(hitColliders[i].GetComponentInParent<RoomControl>());
+            }            
         }
     }
 

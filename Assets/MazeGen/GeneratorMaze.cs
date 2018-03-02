@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-//using UnityEditor;
 
 public class Cell
 {
@@ -49,7 +48,6 @@ public class GeneratorMaze : MonoBehaviour
     private int currentRow;
     private List<Cell> lastCellVisited;
     private int indexCell;
-    //private int currentI;
     private Cell currentCell;
     private List<Cell> neighboringCell;
     private GameObject parent;
