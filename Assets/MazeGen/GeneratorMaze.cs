@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 
 public class Cell
 {
@@ -49,7 +49,7 @@ public class GeneratorMaze : MonoBehaviour
     private int currentRow;
     private List<Cell> lastCellVisited;
     private int indexCell;
-    private int currentI;
+    //private int currentI;
     private Cell currentCell;
     private List<Cell> neighboringCell;
     private GameObject parent;
@@ -75,7 +75,7 @@ public class GeneratorMaze : MonoBehaviour
         neighboringCell = new List<Cell>();
         cells = new List<Cell>();
 
-        currentI = 0;
+        //currentI = 0;
         range = sizeWall;
 
         createWalls();
