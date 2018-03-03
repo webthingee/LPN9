@@ -8,6 +8,7 @@ public class RoomControl : MonoBehaviour
 	//public RoomStuff roomStuff;
     [Header("Tilemap Settings")]
     public Tilemap walkableTilemap;
+    public Tilemap roomTilemap;
     public int wallXPos = 10;
     public int wallYPos = 10;
     
@@ -20,8 +21,9 @@ public class RoomControl : MonoBehaviour
 
     [Header("Room Settings")]
     public bool addRooms;
-    //public GameObject[] roomOptions;
+    public bool testmode;
     public RoomPrefabs roomPrefabs;
+    public List<Tile> TileList = new List<Tile>();
 
 	private List<Vector2> LibWalkableTileVectors = new List<Vector2>();
 	private List<TileBase> LibUnWalkableTileBases = new List<TileBase>();
@@ -36,6 +38,11 @@ public class RoomControl : MonoBehaviour
         gridID = GetComponent<GridID>();
 
         WallMaker();
+
+        if (testmode)
+        {
+            RoomSelection(true);
+        }
     }
 
     public void SetupOnPath ()
@@ -57,7 +64,10 @@ public class RoomControl : MonoBehaviour
             rot = Quaternion.Euler(0, 180, 0);
         }
         
+        roomTilemap = chooseFrom[rand].GetComponent<Tilemap>();
+
         Instantiate(chooseFrom[rand], transform.position, rot, transform);
+        RandomTileMaker(roomTilemap);
     }
 
     List<GameObject> RoomCategoryOptions ()
@@ -134,6 +144,36 @@ public class RoomControl : MonoBehaviour
         }
     }
 
+    private void RandomTileMaker(Tilemap _tilemap)
+    {        
+        var _bounds = _tilemap.cellBounds;
+        var _allTiles = _tilemap.GetTilesBlock(_bounds);
+        
+        for (int x = 0; x < _bounds.size.x; x++)
+        {
+            for (int y = 0; y < _bounds.size.y; y++)
+            {
+                TileBase tile = _allTiles[x + y * _bounds.size.x];
+                if (tile != null)
+                {
+                    Vector3Int tilePos1 = Vector3Int.zero; // because 0 is offset
+                    tilePos1.x = x + _bounds.xMin;
+                    tilePos1.y = y + _bounds.yMin;
+                    
+                    // Tile theTile = (Tile)roomTilemap.GetTile(tilePos);
+                    // Debug.Log(theTile.name);
+
+                    Debug.Log(tile.name);
+
+                    int rand = Random.Range(0, TileList.Count);
+
+                    Debug.Log(rand);
+                    
+                    _tilemap.SetTile(tilePos1, TileList[rand]);
+                }
+            }
+        }
+    }
 
     /* 
 	void CreateInnerWallsY(bool isEast)

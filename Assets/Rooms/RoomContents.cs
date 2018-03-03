@@ -30,14 +30,16 @@ public class RoomContents : MonoBehaviour
     {
         while (_repeat >= 1)
         {
-            int randSpot = Random.Range(0, _spots.Count);
-            int randObj = Random.Range(0, _objects.Length);
+            if (_spots.Count > 0)
+            {
+                 int randSpot = Random.Range(0, _spots.Count);
+                int randObj = Random.Range(0, _objects.Length);
         
-            Instantiate(_objects[randObj], _spots[randSpot].position, Quaternion.identity);
+                Instantiate(_objects[randObj], _spots[randSpot].position, Quaternion.identity);
             
-            _spots.RemoveAt(randSpot);
-            //_objects.RemoveAt(randObj); 
-
+                _spots.RemoveAt(randSpot);
+                //_objects.RemoveAt(randObj); 
+            }
             _repeat --;
         }
     }

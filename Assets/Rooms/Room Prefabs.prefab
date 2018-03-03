@@ -52,8 +52,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Walkways:
+  - {fileID: 1674648086632218, guid: 0f1a4fe57288c42689bf9c5a50dbcfed, type: 2}
   - {fileID: 1620609334584982, guid: 2923e3f21e399418abce7c74a9d3f0b8, type: 2}
-  - {fileID: 1403820724841780, guid: a3b926ca7bb1346858a51174d752c89f, type: 2}
+  - {fileID: 1604398266309304, guid: a3b926ca7bb1346858a51174d752c89f, type: 2}
   Landings: []
   Drops:
   - {fileID: 1514404902031776, guid: 23e15700a5162417cbd6d7e45da2884c, type: 2}
@@ -62,3 +63,9 @@ MonoBehaviour:
   - {fileID: 1435115797925976, guid: 4ed1f4aa49822420585f3a0dc00c1475, type: 2}
   - {fileID: 1313038240193890, guid: a2616729bdd834f4dbfbe686d9839eb2, type: 2}
   - {fileID: 1228525868524128, guid: 32f9bfbd852954f5f8e85b411fab6946, type: 2}
+  Tiles:
+  - {fileID: 11400000, guid: cc9462e7ff6bf43248c98afb990e5127, type: 2}
+  - {fileID: 11400000, guid: 87e1838a071db4e9ab788e4ca318a793, type: 2}
+  - {fileID: 11400000, guid: c69346fd572364e24aaa157aa8bc374f, type: 2}
+  - {fileID: 11400000, guid: 6f9d50ebec7b842a4bb112db45e0ad7f, type: 2}
+  - {fileID: 11400000, guid: 3dd5aeb8229124a3e95891e1c00d4bc1, type: 2}

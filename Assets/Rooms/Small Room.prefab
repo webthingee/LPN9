@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 212616489883581210}
   - component: {fileID: 61971218300139860}
   m_Layer: 4
-  m_Name: New Sprite
+  m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,15 +142,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkableTilemap: {fileID: 8195094280310795432}
+  roomTilemap: {fileID: 0}
   wallXPos: 8
   wallYPos: 6
   placementX: 0
   placementY: 0
   isStartingRoom: 0
   isEndingRoom: 0
+  isOnCompletionPath: 0
   addRooms: 1
+  testmode: 0
   roomPrefabs: {fileID: 114690321624372630, guid: 132fb2e25c9c348fcb2b062a38750096,
     type: 2}
+  TileList:
+  - {fileID: 11400000, guid: 87e1838a071db4e9ab788e4ca318a793, type: 2}
+  - {fileID: 11400000, guid: c69346fd572364e24aaa157aa8bc374f, type: 2}
+  - {fileID: 11400000, guid: 06ebcdc63497d426db29ef138a46825c, type: 2}
+  - {fileID: 11400000, guid: 849934c9a60544858ac5d65f9d372e2a, type: 2}
 --- !u!114 &114599243975018644
 MonoBehaviour:
   m_ObjectHideFlags: 1
