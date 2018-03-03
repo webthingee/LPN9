@@ -2148,21 +2148,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 114907756552861764, guid: f18e883b14a9d40e6bd7e7f35cc80b5c,
-        type: 2}
-      propertyPath: detailedGizmos
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114145865166566188, guid: f18e883b14a9d40e6bd7e7f35cc80b5c,
-        type: 2}
-      propertyPath: speed
-      value: 55
-      objectReference: {fileID: 0}
-    - target: {fileID: 114145865166566188, guid: f18e883b14a9d40e6bd7e7f35cc80b5c,
-        type: 2}
-      propertyPath: repathRate
-      value: 999
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f18e883b14a9d40e6bd7e7f35cc80b5c, type: 2}
   m_IsPrefabParent: 0

@@ -131,10 +131,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 2
-  repathRate: 1
+  repathRate: 999
   canSearch: 1
   canMove: 1
-  speed: 12
+  speed: 111
   enableRotation: 0
   rotationIn2D: 1
   rotationSpeed: 10
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   drawGizmos: 1
-  detailedGizmos: 0
+  detailedGizmos: 1
   startEndModifier:
     addPoints: 0
     exactStartPoint: 3

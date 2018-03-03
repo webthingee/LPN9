@@ -75,12 +75,17 @@ public class RoomControl : MonoBehaviour
 
     List<GameObject> RoomCategoryOptions ()
     {
-        if (gridID.mazeUnitCode.Contains("N") && gridID.mazeUnitCode.Contains("S"))
+        // if (gridID.mazeUnitCode.Contains("N") && gridID.mazeUnitCode.Contains("S"))
+        // {
+        //     return roomPrefabs.Walkways;
+        // }
+
+        if (gridID.passedGridID == 21010)
         {
             return roomPrefabs.Walkways;
         }
 
-        if (gridID.mazeUnitCode.Contains("E") && gridID.mazeUnitCode.Contains("W"))
+        if (gridID.passedGridID == 20101)
         {
             return roomPrefabs.Drops;
         }
