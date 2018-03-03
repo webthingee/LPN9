@@ -13,7 +13,8 @@ public class TilemapReport : MonoBehaviour
         if (GetComponent<AILerp>().reachedEndOfPath)
         {
             GameMaster.GM.pathDefined = true;
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
         }
     }
 

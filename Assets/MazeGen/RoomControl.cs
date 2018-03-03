@@ -25,6 +25,7 @@ public class RoomControl : MonoBehaviour
     public bool addRooms;
     public bool testmode;
     public GameObject exitPrefab;
+    public GameObject lightPrefab;
     public RoomPrefabs roomPrefabs;
     public List<Tile> TileList = new List<Tile>();
     public Tile randomTile;
@@ -178,6 +179,11 @@ public class RoomControl : MonoBehaviour
         {
             RandomOpenPrefabPlacement(_tilemap, exitPrefab);
         }
+
+        if (isOnCompletionPath)
+        {
+            RandomOpenPrefabPlacement(_tilemap, lightPrefab);
+        }
     }
 
     private List<Vector3Int> RandomOpenSpots(Tilemap _tilemap)
@@ -222,8 +228,13 @@ public class RoomControl : MonoBehaviour
 
     private void RandomOpenPrefabPlacement(Tilemap _tilemap, GameObject _preFab)
     {
-        var openSpot = RandomOpenSpot(_tilemap);
-        Instantiate(_preFab, openSpot, Quaternion.identity);
+        Vector3Int openSpot = RandomOpenSpot(_tilemap);
+        // Vector3Int cellPosition = _tilemap.WorldToCell(openSpot);
+        // var prefabPos = _tilemap.GetCellCenterWorld(cellPosition);
+
+        GameObject ep = Instantiate(_preFab, openSpot, Quaternion.identity, this.transform);
+        ep.transform.localPosition = openSpot;
+
     }
 
     /* 
