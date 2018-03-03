@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1653891611462168}
+  m_IsPrefabParent: 1
+--- !u!1 &1653891611462168
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4219111498801222}
+  - component: {fileID: 114690321624372630}
+  m_Layer: 0
+  m_Name: Room Prefabs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4219111498801222
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1653891611462168}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114690321624372630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1653891611462168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a88263a76c70418daecdcbe91eb8565, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Walkways:
+  - {fileID: 1620609334584982, guid: 2923e3f21e399418abce7c74a9d3f0b8, type: 2}
+  - {fileID: 1403820724841780, guid: a3b926ca7bb1346858a51174d752c89f, type: 2}
+  Landings: []
+  Drops:
+  - {fileID: 1514404902031776, guid: 23e15700a5162417cbd6d7e45da2884c, type: 2}
+  - {fileID: 1387852975622252, guid: ca00c7b0fe14a4ef7ae786022e7c74b7, type: 2}
+  Universal:
+  - {fileID: 1435115797925976, guid: 4ed1f4aa49822420585f3a0dc00c1475, type: 2}
+  - {fileID: 1313038240193890, guid: a2616729bdd834f4dbfbe686d9839eb2, type: 2}
+  - {fileID: 1228525868524128, guid: 32f9bfbd852954f5f8e85b411fab6946, type: 2}
