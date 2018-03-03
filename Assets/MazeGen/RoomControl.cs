@@ -16,25 +16,27 @@ public class RoomControl : MonoBehaviour
     public int placementX;
     public int placementY;
     public bool isStartingRoom;
+    public GameObject startingRoom;
     public bool isEndingRoom;
+    public GameObject endingRoom;
     public bool isOnCompletionPath;
 
     [Header("Room Settings")]
     public bool addRooms;
     public bool testmode;
+    public GameObject exitPrefab;
     public RoomPrefabs roomPrefabs;
     public List<Tile> TileList = new List<Tile>();
+    public Tile randomTile;
 
 	private List<Vector2> LibWalkableTileVectors = new List<Vector2>();
 	private List<TileBase> LibUnWalkableTileBases = new List<TileBase>();
     private GridID gridID;
-	BoundsInt bounds;
-	TileBase[] allTiles;
+	//BoundsInt bounds;
+	//TileBase[] allTiles;
 
 	void Start ()
     {
-        bounds = walkableTilemap.cellBounds;
-        allTiles = walkableTilemap.GetTilesBlock(bounds);
         gridID = GetComponent<GridID>();
 
         WallMaker();
@@ -87,6 +89,9 @@ public class RoomControl : MonoBehaviour
 
     private void WallMaker()
     {
+        var bounds = walkableTilemap.cellBounds;
+        var allTiles = walkableTilemap.GetTilesBlock(bounds);
+        
         for (int x = 0; x < bounds.size.x; x++)
         {
             for (int y = 0; y < bounds.size.y; y++)
@@ -159,20 +164,66 @@ public class RoomControl : MonoBehaviour
                     Vector3Int tilePos1 = Vector3Int.zero; // because 0 is offset
                     tilePos1.x = x + _bounds.xMin;
                     tilePos1.y = y + _bounds.yMin;
-                    
-                    // Tile theTile = (Tile)roomTilemap.GetTile(tilePos);
-                    // Debug.Log(theTile.name);
-
-                    Debug.Log(tile.name);
 
                     int rand = Random.Range(0, TileList.Count);
-
-                    Debug.Log(rand);
                     
                     _tilemap.SetTile(tilePos1, TileList[rand]);
                 }
             }
         }
+
+        //RandomOpenTilePlacement(_tilemap, randomTile);
+
+        if (isEndingRoom)
+        {
+            RandomOpenPrefabPlacement(_tilemap, exitPrefab);
+        }
+    }
+
+    private List<Vector3Int> RandomOpenSpots(Tilemap _tilemap)
+    {        
+        var _bounds = _tilemap.cellBounds;
+        var _allTiles = _tilemap.GetTilesBlock(_bounds);
+        List<Vector3Int> openTiles = new List<Vector3Int>();
+        
+        for (int x = 0; x < _bounds.size.x; x++)
+        {
+            for (int y = 0; y < _bounds.size.y; y++)
+            {
+                TileBase tile = _allTiles[x + y * _bounds.size.x];
+                
+                if (tile == null)
+                {
+                    Vector3Int tilePos = Vector3Int.zero; // because 0 is offset
+                    tilePos.x = x + _bounds.xMin;
+                    tilePos.y = y + _bounds.yMin;
+                
+                    openTiles.Add(tilePos);
+                }
+            }
+        }
+        return openTiles;
+    }
+
+    private Vector3Int RandomOpenSpot(Tilemap _tilemap)
+    {
+        var openSpots = RandomOpenSpots(_tilemap);
+
+        int rand = Random.Range(0, openSpots.Count);
+        
+        return openSpots[rand];
+    }
+
+    private void RandomOpenTilePlacement(Tilemap _tilemap, Tile _tile)
+    {
+        var openSpot = RandomOpenSpot(_tilemap);
+        _tilemap.SetTile(openSpot, _tile);
+    }
+
+    private void RandomOpenPrefabPlacement(Tilemap _tilemap, GameObject _preFab)
+    {
+        var openSpot = RandomOpenSpot(_tilemap);
+        Instantiate(_preFab, openSpot, Quaternion.identity);
     }
 
     /* 

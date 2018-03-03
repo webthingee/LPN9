@@ -108,8 +108,8 @@ public class GridPlacement : MonoBehaviour
             startingRoom = roomList[3]; // 0 = bottom 3 = top
         }
         startingRoom.GetComponent<RoomControl>().isStartingRoom = true;            
-        Instantiate(startingRoomPrefabs[0], startingRoom.transform.position, Quaternion.identity, startingRoom.transform);
-        
+        //Instantiate(startingRoomPrefabs[0], startingRoom.transform.position, Quaternion.identity, startingRoom.transform);
+        //startingRoom.GetComponent<RoomControl>().startingRoom = startingRoom;
         GameMaster.GM.mazeStartCreated = true;            
 
         return startingRoom;
@@ -131,8 +131,9 @@ public class GridPlacement : MonoBehaviour
         
         int rand = Random.Range(0, endingRoomOptions.Count);
         endingRoom = endingRoomOptions[rand];
-        endingRoom.GetComponent<RoomControl>().isEndingRoom = true;            
-        Instantiate(endingRoomPrefabs[0], endingRoom.transform.position, Quaternion.identity, endingRoom.transform);
+        endingRoom.GetComponent<RoomControl>().isEndingRoom = true;   
+        //endingRoom.GetComponent<RoomControl>().endingRoom = endingRoom;
+        //Instantiate(endingRoomPrefabs[0], endingRoom.transform.position, Quaternion.identity, endingRoom.transform);
         
         GameMaster.GM.mazeEndCreated = true;            
 

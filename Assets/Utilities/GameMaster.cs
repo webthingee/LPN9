@@ -83,16 +83,17 @@ public class GameMaster : MonoBehaviour
         }
         else
         {
-            player.transform.position = startingRoom.GetComponentInChildren<StartingPoint>().transform.position;
+            player.transform.position = startingRoom.transform.position;
             player.SetActive(true);
         }
     }
 
     void PathTaker ()
     {
-        endingPoint = endingRoom.GetComponentInChildren<EndingPoint>().gameObject;
-        pathTakerObj.GetComponent<AILerp>().destination = endingPoint.transform.position;
-        pathTakerObj.transform.position = startingRoom.GetComponentInChildren<StartingPoint>().transform.position;
+        //endingPoint = endingRoom.GetComponentInChildren<EndingPoint>().gameObject;
+        //endingPoint = GetComponentInChildren<EndingPoint>().gameObject;
+        pathTakerObj.GetComponent<AILerp>().destination = endingRoom.transform.position;
+        pathTakerObj.transform.position = startingRoom.transform.position;
         pathTakerObj.SetActive(true);
     }
 }

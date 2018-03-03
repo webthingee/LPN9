@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Walkways:
   - {fileID: 1674648086632218, guid: 0f1a4fe57288c42689bf9c5a50dbcfed, type: 2}
-  - {fileID: 1620609334584982, guid: 2923e3f21e399418abce7c74a9d3f0b8, type: 2}
+  - {fileID: 1354973367595214, guid: 41890721b803c4144bdfa8528991c5de, type: 2}
   - {fileID: 1604398266309304, guid: a3b926ca7bb1346858a51174d752c89f, type: 2}
   Landings: []
   Drops:
