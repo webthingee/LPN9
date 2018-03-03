@@ -35,7 +35,7 @@ public class TilemapReport : MonoBehaviour
     {
         if (!roomsToEnd.Contains(other.GetComponentInParent<RoomControl>()))
             roomsToEnd.Add(other.GetComponentInParent<RoomControl>());
-            other.GetComponentInParent<RoomControl>().isOnCompletionPath = true;
+            other.GetComponentInParent<RoomControl>().SetupOnPath();
     }
 
     // void GetGraph ()

@@ -38,6 +38,12 @@ public class RoomControl : MonoBehaviour
         WallMaker();
     }
 
+    public void SetupOnPath ()
+    {
+        isOnCompletionPath = true;
+        
+    }
+
     public void RoomSelection(bool _allowRotation)
     {
         List<GameObject> chooseFrom = RoomCategoryOptions();

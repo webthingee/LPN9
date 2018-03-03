@@ -24,8 +24,8 @@ public class NPCMovement : CharacterMovement
 
     protected override void Update () 
     {
-        if (!SomethingEast()) { verticalDirection = -1; }
-        if (!SomethingWest()) { verticalDirection = 1; }         
+        if (!SomethingEast() || WallEast()) { verticalDirection = -1; }
+        if (!SomethingWest() || WallWest()) { verticalDirection = 1; }         
         MoveCharacter ();
 
         base.Update();
@@ -94,11 +94,33 @@ public class NPCMovement : CharacterMovement
         return Physics2D.Raycast(rayStart, rayDir, rayDist, walkable);
     }
 
+    bool WallEast ()
+    {
+        var rayStart = transform.position;
+        var rayDir = Vector2.right;
+        float rayDist = .5f;
+
+        Debug.DrawRay(rayStart, rayDir * rayDist, Color.green);
+
+        return Physics2D.Raycast(rayStart, rayDir, rayDist, walkable);
+    }
+
     bool SomethingWest ()
     {
         var rayStart = transform.position;
         rayStart.x -= edgeDistance;
         var rayDir = Vector2.down;
+        float rayDist = .5f;
+
+        Debug.DrawRay(rayStart, rayDir * rayDist, Color.green);
+
+        return Physics2D.Raycast(rayStart, rayDir, rayDist, walkable);
+    }
+
+        bool WallWest ()
+    {
+        var rayStart = transform.position;
+        var rayDir = -Vector2.right;
         float rayDist = .5f;
 
         Debug.DrawRay(rayStart, rayDir * rayDist, Color.green);
