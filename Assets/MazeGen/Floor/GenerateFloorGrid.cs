@@ -65,23 +65,23 @@ public class GenerateFloorGrid : MonoBehaviour
 
     }
 
-    private void MakeALatter(GameObject _floorUnit, float _fuscale, Vector3 _pos)
-    {
-        Ray ray = new Ray(_floorUnit.transform.position, -transform.up);
-        float rayDist = 100f;
+    // private void MakeALatter(GameObject _floorUnit, float _fuscale, Vector3 _pos)
+    // {
+    //     Ray ray = new Ray(_floorUnit.transform.position, -transform.up);
+    //     float rayDist = 100f;
 
-        Debug.DrawRay(_floorUnit.transform.position, -transform.up * rayDist, Color.green);
+    //     Debug.DrawRay(_floorUnit.transform.position, -transform.up * rayDist, Color.green);
 
-        RaycastHit hit;
-        if (Physics.Raycast(_floorUnit.transform.position, -transform.up, out hit, rayDist))
-        {
-            var latterUnit = Instantiate(prefabs[1], _floorUnit.transform.position + _pos, Quaternion.identity, this.transform);
-            latterUnit.transform.localScale = new Vector3(_fuscale, hit.distance / 8f, 1f);
-            var latterPos = _floorUnit.transform.position;
-            latterPos.y = _floorUnit.transform.position.y - latterUnit.transform.lossyScale.y / 2;
-            latterUnit.transform.position = latterPos;
-        }
-    }
+    //     RaycastHit hit;
+    //     if (Physics.Raycast(_floorUnit.transform.position, -transform.up, out hit, rayDist))
+    //     {
+    //         var latterUnit = Instantiate(prefabs[1], _floorUnit.transform.position + _pos, Quaternion.identity, this.transform);
+    //         latterUnit.transform.localScale = new Vector3(_fuscale, hit.distance / 8f, 1f);
+    //         var latterPos = _floorUnit.transform.position;
+    //         latterPos.y = _floorUnit.transform.position.y - latterUnit.transform.lossyScale.y / 2;
+    //         latterUnit.transform.position = latterPos;
+    //     }
+    // }
 
     /// Identifies if the postion should be a wall
     private bool IsWall(int x, int y)

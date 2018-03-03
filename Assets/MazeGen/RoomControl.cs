@@ -10,48 +10,63 @@ public class RoomControl : MonoBehaviour
     public Tilemap walkableTilemap;
     public int wallXPos = 10;
     public int wallYPos = 10;
-	public int openingSize;
     
     [Header("Room Settings")]
     public int placementX;
     public int placementY;
     public bool isStartingRoom;
     public bool isEndingRoom;
+    public bool isOnCompletionPath;
 
     [Header("Room Settings")]
     public bool addRooms;
-    public GameObject[] roomOptions;
+    //public GameObject[] roomOptions;
+    public RoomPrefabs roomPrefabs;
 
 	private List<Vector2> LibWalkableTileVectors = new List<Vector2>();
 	private List<TileBase> LibUnWalkableTileBases = new List<TileBase>();
+    private GridID gridID;
 	BoundsInt bounds;
 	TileBase[] allTiles;
-	
-	void Awake()
-	{
-        openingSize = openingSize/2;
-	}
 
 	void Start ()
     {
         bounds = walkableTilemap.cellBounds;
         allTiles = walkableTilemap.GetTilesBlock(bounds);
+        gridID = GetComponent<GridID>();
 
         WallMaker();
+    }
 
-        if (roomOptions.Length > 0 && addRooms)
+    public void RoomSelection(bool _allowRotation)
+    {
+        List<GameObject> chooseFrom = RoomCategoryOptions();
+        
+        int rand = Random.Range(0, chooseFrom.Count);
+        
+        int rotRand = Random.Range(0, 101);
+        Quaternion rot = Quaternion.identity;
+        if (rotRand % 2 == 0 && _allowRotation)
         {
-            int rand = Random.Range(0, roomOptions.Length);
-            int rotRand = Random.Range(0, 101);
-            Quaternion rot = Quaternion.Euler(0,180,0);
-            if (rotRand % 2 == 0)
-            {
-                rot = Quaternion.identity;
-            }
-            Instantiate(roomOptions[rand], transform.position, rot, transform);
+            rot = Quaternion.Euler(0, 180, 0);
         }
-        //Instantiate(roomStuff.ememies[0], transform.position, Quaternion.identity);
+        
+        Instantiate(chooseFrom[rand], transform.position, rot, transform);
+    }
 
+    List<GameObject> RoomCategoryOptions ()
+    {
+        if (gridID.mazeUnitCode.Contains("N") && gridID.mazeUnitCode.Contains("S"))
+        {
+            return roomPrefabs.Walkways;
+        }
+
+        if (gridID.mazeUnitCode.Contains("E") && gridID.mazeUnitCode.Contains("W"))
+        {
+            return roomPrefabs.Drops;
+        }
+
+        return roomPrefabs.Universal;
     }
 
     private void WallMaker()
@@ -67,35 +82,33 @@ public class RoomControl : MonoBehaviour
                     tilePos.x = x + bounds.xMin;
                     tilePos.y = y + bounds.yMin;
 
-                    var id = GetComponentInParent<GridID>().passedGridID;
-
-                    if (!GetComponentInParent<GridID>().mazeUnitCode.Contains("W"))
+                    if (!gridID.mazeUnitCode.Contains("W"))
                     {
-                        if (tilePos.x == -wallXPos && (tilePos.y >= -openingSize && tilePos.y < openingSize))
+                        if (tilePos.x == -wallXPos && (tilePos.y >= -wallYPos + 1 && tilePos.y < wallYPos - 1))
                         {    
                             walkableTilemap.SetTile(tilePos, null);
                         }
                     }
 
-                    if (!GetComponentInParent<GridID>().mazeUnitCode.Contains("E"))
+                    if (!gridID.mazeUnitCode.Contains("E"))
                     {
-                        if (tilePos.x == wallXPos - 1 && (tilePos.y >= -openingSize && tilePos.y < openingSize))
+                        if (tilePos.x == wallXPos - 1 && (tilePos.y >= -wallYPos + 1 && tilePos.y < wallYPos - 1))
                         {
                             walkableTilemap.SetTile(tilePos, null);
                         }
                     }
 
-                    if (!GetComponentInParent<GridID>().mazeUnitCode.Contains("S"))
+                    if (!gridID.mazeUnitCode.Contains("S"))
                     {
-                        if (tilePos.y == -wallYPos && (tilePos.x >= -openingSize && tilePos.x < openingSize))
+                        if (tilePos.y == -wallYPos && (tilePos.x >= -wallXPos + 1 && tilePos.x < wallXPos - 1))
                         {
                             walkableTilemap.SetTile(tilePos, null);
                         }
                     }
 
-                    if (!GetComponentInParent<GridID>().mazeUnitCode.Contains("N"))
+                    if (!gridID.mazeUnitCode.Contains("N"))
                     {
-                        if (tilePos.y == wallYPos - 1 && (tilePos.x >= -openingSize && tilePos.x < openingSize))
+                        if (tilePos.y == wallYPos - 1 && (tilePos.x >= -wallXPos + 1 && tilePos.x < wallXPos - 1))
                         {
                             walkableTilemap.SetTile(tilePos, null);
                         }
@@ -114,6 +127,7 @@ public class RoomControl : MonoBehaviour
             }
         }
     }
+
 
     /* 
 	void CreateInnerWallsY(bool isEast)

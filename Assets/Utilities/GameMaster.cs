@@ -15,6 +15,8 @@ public class GameMaster : MonoBehaviour
     public bool mazeGridCreated;
     public bool mazeStartCreated;
     public bool mazeEndCreated;
+    public bool pathDefined;
+    public bool roomsBuilt;
 
     public GameObject startingRoom;
     public GameObject endingRoom;
@@ -41,6 +43,8 @@ public class GameMaster : MonoBehaviour
     void Start ()
     {
         StartCoroutine(ActivateAstar());
+        StartCoroutine(BuildRooms());
+        StartCoroutine(ActivatePlayer());
     }
 
     IEnumerator ActivateAstar ()
@@ -54,19 +58,26 @@ public class GameMaster : MonoBehaviour
             PathTaker();
     }
 
-    void PathTaker ()
+    IEnumerator BuildRooms ()
     {
-        endingPoint = endingRoom.GetComponentInChildren<EndingPoint>().gameObject;
-        pathTakerObj.GetComponent<AILerp>().destination = endingPoint.transform.position;
-        pathTakerObj.transform.position = startingRoom.GetComponentInChildren<StartingPoint>().transform.position;
-        pathTakerObj.SetActive(true);
+        yield return new WaitForEndOfFrame();
+
+        if (!pathDefined)
+        {
+            StartCoroutine(BuildRooms());
+        }
+        else
+        {
+            GameObject.Find("Grids").GetComponent<GridPlacement>().AddRooms();
+            roomsBuilt = true;
+        }
     }
 
     IEnumerator ActivatePlayer ()
     {
         yield return new WaitForEndOfFrame();
 
-        if (!mazeEndCreated)
+        if (!roomsBuilt)
         {
             StartCoroutine(ActivatePlayer());
         }
@@ -75,5 +86,13 @@ public class GameMaster : MonoBehaviour
             player.transform.position = startingRoom.GetComponentInChildren<StartingPoint>().transform.position;
             player.SetActive(true);
         }
+    }
+
+    void PathTaker ()
+    {
+        endingPoint = endingRoom.GetComponentInChildren<EndingPoint>().gameObject;
+        pathTakerObj.GetComponent<AILerp>().destination = endingPoint.transform.position;
+        pathTakerObj.transform.position = startingRoom.GetComponentInChildren<StartingPoint>().transform.position;
+        pathTakerObj.SetActive(true);
     }
 }

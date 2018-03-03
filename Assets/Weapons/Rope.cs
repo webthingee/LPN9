@@ -7,7 +7,7 @@ public class Rope : MonoBehaviour
 	public GameObject hook;
     public bool isStopped;
     public LineRenderer line;
-    Vector3 playerPos;
+    // Vector3 playerPos;
     EdgeCollider2D edge2d;
     
     public float maxHeight;
@@ -16,7 +16,7 @@ public class Rope : MonoBehaviour
     {
         Debug.Log("Rope Script Started");
         line = GetComponent<LineRenderer>();
-        playerPos = GameObject.Find("Player").transform.position;
+        // playerPos = GameObject.Find("Player").transform.position;
         edge2d = GetComponent<EdgeCollider2D>();
     }
 

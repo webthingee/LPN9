@@ -46,8 +46,8 @@ public class GridPlacement : MonoBehaviour
 
 	void LayoutGrid()
 	{		
-		numberOfTilesWidth = room.GetComponent<RoomControl>().wallXPos * 2 - 1; 
-		numberOfTilesHeight = room.GetComponent<RoomControl>().wallYPos * 2 - 1; 
+		numberOfTilesWidth = room.GetComponent<RoomControl>().wallXPos * 2; 
+		numberOfTilesHeight = room.GetComponent<RoomControl>().wallYPos * 2; 
 
         if (maze.hasListOfMazeUnits)
 		{
@@ -138,5 +138,13 @@ public class GridPlacement : MonoBehaviour
 
         return endingRoom;
     }
+
+    public void AddRooms ()
+    {
+        foreach (GameObject room in roomList)
+        {
+            room.GetComponent<RoomControl>().RoomSelection(true);
+        }
+    }    
 
 }
