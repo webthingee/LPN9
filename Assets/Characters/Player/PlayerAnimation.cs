@@ -19,9 +19,11 @@ public class PlayerAnimation : MonoBehaviour
 
     void Update ()
     {        
+        float yAxis = Input.GetAxis("Vertical");
         ChangeDirection(cm.GetMoveDirection.x);
 
         anim.SetFloat("Forward", Mathf.Abs(cm.GetMoveDirection.x));
+        anim.SetFloat("Looking", yAxis);
     }
 
     void ChangeDirection (float _direction)
