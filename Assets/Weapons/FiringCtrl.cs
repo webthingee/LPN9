@@ -20,14 +20,14 @@ public class FiringCtrl : MonoBehaviour
     void Update()
     {
         /// Fire Projectile
-		if (Input.GetButtonDown("Fire2") && canFire)
+		if (Input.GetButtonDown("Weapon") && canFire)
 		{			
 			canFire = false;
             PullTrigger();
 		}
 
         /// Fire Rope
-        if (Input.GetAxisRaw("Vertical") > 0 && Input.GetButtonDown("Fire1") && canFireRope)
+        if (Input.GetAxisRaw("Vertical") > 0 && Input.GetButtonDown("Utility") && canFireRope)
 		{			
 			canFireRope = false;
             FireRope(transform.up, weapon.TimeBetweenHits);
