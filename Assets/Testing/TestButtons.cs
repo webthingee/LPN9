@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TestButtons : MonoBehaviour
 {
-    [SerializeField] Text t;
+    [SerializeField] Text t;    
 
     void Update()
     {

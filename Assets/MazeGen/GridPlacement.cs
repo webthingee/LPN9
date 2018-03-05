@@ -35,15 +35,6 @@ public class GridPlacement : MonoBehaviour
 		}
     }
 
-    void Update()
-	{
-		// Prevent Infinate Loops and Crashing
-        var fps = 1.0f / Time.deltaTime;
-     	if(fps < 1) {
-        	Debug.Break();
-     	}
-	}
-
 	void LayoutGrid()
 	{		
 		numberOfTilesWidth = room.GetComponent<RoomControl>().wallXPos * 2; 
@@ -63,15 +54,6 @@ public class GridPlacement : MonoBehaviour
 				theRoom.GetComponent<GridID>().mazeUnitCode = unit.code;
 
                 roomList.Add(theRoom);
-				// foreach (GridID grid in gridPrefabs)
-				// {
-				// 	if (unit.mazeUnitCode == grid.gridID)
-				// 	{
-				// 		Vector2Int posAdjust = new Vector2Int (numberOfTilesWidth, numberOfTilesHeight);
-				// 		Vector2 pos = unit.zPoint * posAdjust;
-				// 		Instantiate(grid, pos, Quaternion.identity);
-				// 	}
-				// }
 			}
 		}
 		GameObject.Find("Maze").SetActive(false);
@@ -104,12 +86,9 @@ public class GridPlacement : MonoBehaviour
         }
         else
         {
-            Debug.Log("no starting point, using first room");
             startingRoom = roomList[3]; // 0 = bottom 3 = top
         }
         startingRoom.GetComponent<RoomControl>().isStartingRoom = true;            
-        //Instantiate(startingRoomPrefabs[0], startingRoom.transform.position, Quaternion.identity, startingRoom.transform);
-        //startingRoom.GetComponent<RoomControl>().startingRoom = startingRoom;
         GameMaster.GM.mazeStartCreated = true;            
 
         return startingRoom;
@@ -131,10 +110,7 @@ public class GridPlacement : MonoBehaviour
         
         int rand = Random.Range(0, endingRoomOptions.Count);
         endingRoom = endingRoomOptions[rand];
-        endingRoom.GetComponent<RoomControl>().isEndingRoom = true;   
-        //endingRoom.GetComponent<RoomControl>().endingRoom = endingRoom;
-        //Instantiate(endingRoomPrefabs[0], endingRoom.transform.position, Quaternion.identity, endingRoom.transform);
-        
+        endingRoom.GetComponent<RoomControl>().isEndingRoom = true;        
         GameMaster.GM.mazeEndCreated = true;            
 
         return endingRoom;

@@ -97,9 +97,4 @@ public class PlayerMovement : CharacterMovement
         //     //}
         // }
     }
-
-    void OnDestroy()
-    {
-        Debug.Log("getting destoryed");
-    }
 }

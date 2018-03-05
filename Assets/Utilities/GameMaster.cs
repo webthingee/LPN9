@@ -1,52 +1,108 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Pathfinding;
 
 public class GameMaster : MonoBehaviour 
 {
     public static GameMaster GM = null;
+    public bool runSetup;
 
+    [Header("Game Objects")]
     public GameObject player;
     public GameObject aStar;
     public GameObject pathTakerObj;
+    public GameObject gameMaze;
+    public GameObject gameGrid;
+    public GameObject loadingCanvas;
 
+    [Header("Dynamic Booleans")]
     public bool mazeBaseCreated;
     public bool mazeGridCreated;
     public bool mazeStartCreated;
     public bool mazeEndCreated;
     public bool pathDefined;
     public bool roomsBuilt;
+    public bool playerActive;
+    public bool gameInProgress;
 
-    public GameObject startingRoom;
-    public GameObject endingRoom;
-    public GameObject endingPoint;
+    [Header("Dynamic Properties")]
+    [SerializeField] public GameObject startingRoom;
+    [SerializeField] public GameObject endingRoom;
 
-    void Awake ()
-    {
-        //Check if instance already exists
-        if (GM == null)
-            
-            //if not, set instance to this
-            GM = this;
-        
-        //If instance already exists and it's not this:
-        else if (GM != this)
-            
-            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
-            Destroy(gameObject);    
-        
-        //Sets this to not be destroyed when reloading scene
-        DontDestroyOnLoad(gameObject);
+    void Awake() 
+    { 
+        if (GM != null && GM != this) 
+        { 
+            Destroy(this.gameObject);
+            return;
+        }
+
+        GM = this;
     }
 
     void Start ()
     {
+        AllPropToFalse ();
+        PreSetup ();
+        
+        if (runSetup)
+        {
+            RunSetup();
+        }
+    }
+
+    void Update()
+    {
+        KeyboardInputManager();
+    }
+
+    void KeyboardInputManager ()
+    {
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.Escape))
+        {
+            ReLoadScene();
+        }
+
+        if (Input.GetKeyUp(KeyCode.P))
+        {
+            ManagePrefs.MP.gold ++;
+        }
+
+        if (Input.GetKeyUp(KeyCode.L))
+        {
+            ManagePrefs.MP.gold--;
+        }
+    }
+
+    #region Setup Management
+    public void PreSetup ()
+    {
+        loadingCanvas.SetActive(false);
+        gameMaze.SetActive(false);
+        gameGrid.SetActive(false);
+    }
+
+    public void RunSetup ()
+    {
+        loadingCanvas.SetActive(true);
+        gameMaze.SetActive(true);
+        gameGrid.SetActive(true);
+        
         StartCoroutine(ActivateAstar());
         StartCoroutine(BuildRooms());
         StartCoroutine(ActivatePlayer());
+        StartCoroutine(ShowGame());
     }
 
+    void ReLoadScene ()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+    }
+    #endregion
+
+    #region Load Sequence Management
     IEnumerator ActivateAstar ()
     {
         yield return new WaitForSeconds(2f);
@@ -56,6 +112,13 @@ public class GameMaster : MonoBehaviour
         else
             aStar.GetComponent<AstarPath>().Scan();
             PathTaker();
+    }
+    
+    void PathTaker ()
+    {
+        pathTakerObj.GetComponent<AILerp>().destination = endingRoom.transform.position;
+        pathTakerObj.transform.position = startingRoom.transform.position;
+        pathTakerObj.SetActive(true);
     }
 
     IEnumerator BuildRooms ()
@@ -85,15 +148,56 @@ public class GameMaster : MonoBehaviour
         {
             player.transform.position = startingRoom.transform.position;
             player.SetActive(true);
+            playerActive = true;
         }
     }
 
-    void PathTaker ()
+    IEnumerator ShowGame ()
     {
-        //endingPoint = endingRoom.GetComponentInChildren<EndingPoint>().gameObject;
-        //endingPoint = GetComponentInChildren<EndingPoint>().gameObject;
-        pathTakerObj.GetComponent<AILerp>().destination = endingRoom.transform.position;
-        pathTakerObj.transform.position = startingRoom.transform.position;
-        pathTakerObj.SetActive(true);
+        yield return new WaitForEndOfFrame();
+
+        if (!playerActive)
+        {
+            StartCoroutine(ShowGame());
+        }
+        else
+        {
+            loadingCanvas.SetActive(false);
+            gameInProgress = true;
+        }
     }
+    #endregion
+
+    #region Properties Management
+
+    public void AllPropToFalse ()
+    {
+        foreach (bool prop in PropertiesList())
+        {
+            PropToFalse(prop);
+        }
+    }
+
+    public void PropToFalse (bool _boolName)
+    {
+        _boolName = false;
+    }
+
+    List<bool> PropertiesList ()
+    {
+        List<bool> PropList = new List<bool>();
+
+        PropList.Add(mazeBaseCreated);
+        PropList.Add(mazeGridCreated);
+        PropList.Add(mazeStartCreated);
+        PropList.Add(mazeEndCreated);
+        PropList.Add(pathDefined);
+        PropList.Add(roomsBuilt);
+        PropList.Add(playerActive);
+        PropList.Add(gameInProgress);
+
+        return PropList;
+    }
+
+    #endregion
 }
