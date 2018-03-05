@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4916980844404546}
   - component: {fileID: 212518084162264256}
   - component: {fileID: 114205322042834828}
+  - component: {fileID: 58246919527768456}
   m_Layer: 0
   m_Name: Exit Point
   m_TagString: Untagged
@@ -41,6 +42,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &58246919527768456
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1641713367533540}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1
 --- !u!114 &114205322042834828
 MonoBehaviour:
   m_ObjectHideFlags: 1

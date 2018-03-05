@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
+
 
 public class GameMenu : MonoBehaviour 
 {
@@ -17,7 +19,11 @@ public class GameMenu : MonoBehaviour
 
     public void LoadGame ()
     {
-        Debug.Log("LoadGame");
         SceneManager.LoadScene(1, LoadSceneMode.Single);
+    }
+
+    public void QuitGame ()
+    {
+        Application.Quit();
     }
 }
