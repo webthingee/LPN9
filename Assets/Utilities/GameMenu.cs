@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-//using UnityEngine.EventSystems;
 
 public class GameMenu : MonoBehaviour 
 {
@@ -12,8 +11,18 @@ public class GameMenu : MonoBehaviour
 
     void Start()
     {
-        gameCount.text = "Games Played = " + ManagePrefs.MP.GamesPlayed.ToString();
-        coinCount.text = "Coins Collected = " + ManagePrefs.MP.Gold.ToString();
+        gameCount.text = "All Time Levels Played = " + ManagePrefs.MP.GamesPlayed.ToString();
+        coinCount.text = "All Time Coins Collected = " + ManagePrefs.MP.Gold.ToString();
+    }
+
+    void OnEnable ()
+    {
+        Time.timeScale = 0f;
+    } 
+
+    void OnDisable ()
+    {
+        Time.timeScale = 1f;
     }
 
     public void LoadGame ()
@@ -21,8 +30,18 @@ public class GameMenu : MonoBehaviour
         SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
 
+    public void LoadGameMenu ()
+    {
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
+    }
+
     public void QuitGame ()
     {
         Application.Quit();
+    }
+
+    public void CloseCanvas ()
+    {
+        this.gameObject.SetActive(false);
     }
 }

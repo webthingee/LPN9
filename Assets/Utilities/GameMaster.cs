@@ -16,6 +16,7 @@ public class GameMaster : MonoBehaviour
     public GameObject gameMaze;
     public GameObject gameGrid;
     public GameObject loadingCanvas;
+    public GameObject pauseCanvas;
 
     [Header("Dynamic Booleans")]
     public bool mazeBaseCreated;
@@ -90,6 +91,7 @@ public class GameMaster : MonoBehaviour
     #region Setup Management
     public void PreSetup ()
     {
+        pauseCanvas.SetActive(false);
         loadingCanvas.SetActive(false);
         gameMaze.SetActive(false);
         gameGrid.SetActive(false);
@@ -119,6 +121,7 @@ public class GameMaster : MonoBehaviour
 
     void PauseGame ()
     {
+        pauseCanvas.SetActive(true);
         // set canvas to active
         // while loop for if canvas is active Time.timescale = 0;
     }
