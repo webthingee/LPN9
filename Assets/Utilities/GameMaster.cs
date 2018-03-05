@@ -62,17 +62,28 @@ public class GameMaster : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.Escape))
         {
+            // maybe are you sure menu first? same as pause? instead of pause
+            LoadGameMenu();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
             ReLoadScene();
         }
 
         if (Input.GetKeyUp(KeyCode.P))
         {
-            ManagePrefs.MP.gold ++;
+            PauseGame();
         }
 
         if (Input.GetKeyUp(KeyCode.L))
         {
-            ManagePrefs.MP.gold--;
+            ManagePrefs.MP.Gold ++;
+        }
+
+        if (Input.GetKeyUp(KeyCode.K))
+        {
+            ManagePrefs.MP.Gold --;
         }
     }
 
@@ -100,6 +111,18 @@ public class GameMaster : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
     }
+
+    void LoadGameMenu ()
+    {
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
+    }
+
+    void PauseGame ()
+    {
+        // set canvas to active
+        // while loop for if canvas is active Time.timescale = 0;
+    }
+
     #endregion
 
     #region Load Sequence Management
@@ -164,6 +187,7 @@ public class GameMaster : MonoBehaviour
         {
             loadingCanvas.SetActive(false);
             gameInProgress = true;
+            ManagePrefs.MP.GamesPlayed++;
         }
     }
     #endregion
