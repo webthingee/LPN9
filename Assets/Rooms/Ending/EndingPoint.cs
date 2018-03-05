@@ -13,4 +13,11 @@ public class EndingPoint : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+            Debug.Log("Next Level");
+            GameMaster.GM.ReLoadScene();
+    }
 }

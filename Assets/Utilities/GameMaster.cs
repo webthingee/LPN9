@@ -107,7 +107,7 @@ public class GameMaster : MonoBehaviour
         StartCoroutine(ShowGame());
     }
 
-    void ReLoadScene ()
+    public void ReLoadScene ()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
     }
