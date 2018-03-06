@@ -8,6 +8,8 @@ public class Character : MonoBehaviour, IDamageable
     [SerializeField] float charHealth;
     [SerializeField] float charStrength;
 
+    public GameObject deathEffect;
+
     public float CharHealth
     {
         get
@@ -23,7 +25,6 @@ public class Character : MonoBehaviour, IDamageable
 
     void Start () 
     {
-		
 	}
 	
 	void Update () 
@@ -38,6 +39,11 @@ public class Character : MonoBehaviour, IDamageable
         {
             Destroy(this.gameObject);
         }
+    }
+
+    void OnDestroy()
+    {
+        Instantiate(deathEffect, transform.position, Quaternion.identity, null);
     }
 
 }

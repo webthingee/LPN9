@@ -138,6 +138,8 @@ MonoBehaviour:
   jumpSpeed: 4
   doubleJumpSpeed: 4
   gravity: 36
+  isClimbing: 0
+  climbAxis: 0
   isJumping: 0
   jumpAvailable: 0
   canDoubleJump: 0
@@ -173,6 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a81b9171135f846c89e43af1c96f7b06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameTilemap: {fileID: 0}
 --- !u!114 &114508765916970184
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -247,7 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   primaryWeapon: {fileID: 11400000, guid: fdeb67c6d739248149206234d9a2bd61, type: 2}
-  rightHand: {fileID: 0}
+  secondaryWeapon: {fileID: 0}
 --- !u!114 &114958949108988154
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -260,7 +263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charName: 
-  charHealth: 12
+  charHealth: 1
   charStrength: 0
 --- !u!212 &212704189579004922
 SpriteRenderer:

@@ -22,7 +22,7 @@ public class FiringCtrl : MonoBehaviour
         /// Fire Projectile
 		if (Input.GetButtonDown("Weapon") && canFire)
 		{			
-			canFire = false;
+            canFire = false;
             PullTrigger();
 		}
 
