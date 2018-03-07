@@ -41,11 +41,7 @@ public class RoomControl : MonoBehaviour
         gridID = GetComponent<GridID>();
 
         WallMaker();
-
-        if (testmode)
-        {
-            RoomSelection(true);
-        }
+        
     }
 
     public void SetupOnPath ()

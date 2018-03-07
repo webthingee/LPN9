@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Enemy : Character 
 {	
-	void Start () {
-
+	protected override void Start () 
+    {
+        base.Start();
 	}
 
 	void Update ()

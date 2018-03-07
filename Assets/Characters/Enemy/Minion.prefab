@@ -263,8 +263,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charName: 
-  charHealth: 1
+  charHealth: 5
   charStrength: 0
+  deathEffect: {fileID: 1415748730681946, guid: 8e53e878bdaa44449bf2ebec5a323cfd,
+    type: 2}
 --- !u!212 &212704189579004922
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -279,7 +281,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c54b3064dac7147c89576409bc0cd203, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Character {
-
-
-    // Use this for initialization
-    void Start () {
-		
+public class Player : Character 
+{
+	protected override void Start () 
+    {
+        base.Start();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
 }
