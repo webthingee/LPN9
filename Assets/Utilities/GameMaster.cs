@@ -99,7 +99,7 @@ public class GameMaster : MonoBehaviour
 
     public void RunSetup ()
     {
-        loadingCanvas.SetActive(false); // false
+        loadingCanvas.SetActive(true);
         gameMaze.SetActive(true);
         gameGrid.SetActive(true);
         
