@@ -20,6 +20,7 @@ public class RoomControl : MonoBehaviour
     public bool isEndingRoom;
     public GameObject endingRoom;
     public bool isOnCompletionPath;
+    public bool isRotated;
 
     [Header("Room Settings")]
     public bool addRooms;
@@ -67,12 +68,14 @@ public class RoomControl : MonoBehaviour
         if (rotRand % 2 == 0 && _allowRotation)
         {
             rot = Quaternion.Euler(0, 180, 0);
+            isRotated = true;
         }
         
         roomTilemap = chooseFrom[rand].GetComponent<Tilemap>();
 
         Instantiate(chooseFrom[rand], transform.position, rot, transform);
         RandomTileMaker(roomTilemap);
+        PlaceStuff(roomTilemap);
     }
 
     List<GameObject> RoomCategoryOptions ()
@@ -179,25 +182,9 @@ public class RoomControl : MonoBehaviour
                 }
             }
         }
-        //RandomOpenPrefabPlacement(_tilemap, randomPrefab);
-
-        if (isStartingRoom)
-        {
-            RandomOpenPrefabPlacement(_tilemap, randomPrefab);
-        }
-
-        if (isEndingRoom)
-        {
-            RandomOpenPrefabPlacement(_tilemap, exitPrefab);
-        }
-
-        if (isOnCompletionPath)
-        {
-            RandomOpenPrefabPlacement(_tilemap, lightPrefab);
-        }
     }
 
-    private List<Vector3Int> RandomOpenSpots(Tilemap _tilemap)
+    private List<Vector3Int> RandomOpenSpots(Tilemap _tilemap) // multiple include hazard
     {        
         var _bounds = _tilemap.cellBounds;
         var _allTiles = _tilemap.GetTilesBlock(_bounds);
@@ -215,7 +202,13 @@ public class RoomControl : MonoBehaviour
                     tilePos.x = x + _bounds.xMin;
                     tilePos.y = y + _bounds.yMin;
 
-                    openTiles.Add(tilePos);
+                    if (-6 < tilePos.x && tilePos.x < 6)
+                    {
+                        if (-4 < tilePos.y && tilePos.y < 4)
+                        {
+                            openTiles.Add(tilePos);
+                        }                    
+                    }
                 }
             }
         }
@@ -243,6 +236,11 @@ public class RoomControl : MonoBehaviour
         openSpot.x += 0.5f;
         openSpot.y += 0.5f;
 
+        if (isRotated)
+        {
+            openSpot.x *= -1;            
+        }
+
         // Vector3Int cellPosition = _tilemap.WorldToCell(openSpot);
         // var prefabPos = _tilemap.GetCellCenterWorld(cellPosition);
 
@@ -251,6 +249,26 @@ public class RoomControl : MonoBehaviour
 
     }
 
+
+    void PlaceStuff (Tilemap _tilemap)
+    {
+        //RandomOpenPrefabPlacement(_tilemap, randomPrefab);
+
+        if (!isStartingRoom)
+        {
+            RandomOpenPrefabPlacement(_tilemap, randomPrefab);
+        }
+
+        if (isEndingRoom)
+        {
+            RandomOpenPrefabPlacement(_tilemap, exitPrefab);
+        }
+
+        if (isOnCompletionPath)
+        {
+            RandomOpenPrefabPlacement(_tilemap, lightPrefab);
+        }
+    }
     /* 
 	void CreateInnerWallsY(bool isEast)
 	{
