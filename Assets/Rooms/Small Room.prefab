@@ -170,6 +170,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2d1dded87ec4e4249b820421d275eb24, type: 2}
   - {fileID: 11400000, guid: 79f54c7e7ec314d11893f5ba74d66f8a, type: 2}
   randomTile: {fileID: 11400000, guid: b65f2edd566f14185a350b0d4643a598, type: 2}
+  randomPrefab: {fileID: 1641713367533540, guid: 851d2af1bdb8a4ddb933a92eb8617946,
+    type: 2}
 --- !u!114 &114599243975018644
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -16,8 +16,10 @@ public class EndingPoint : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player")
-            Debug.Log("Next Level");
-            GameMaster.GM.ReLoadScene();
+        if (other.gameObject.tag == "Player")
+            {
+                Debug.Log("Next Level");
+                GameMaster.GM.ReLoadScene();  
+            }
     }
 }

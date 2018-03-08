@@ -29,6 +29,7 @@ public class RoomControl : MonoBehaviour
     public RoomPrefabs roomPrefabs;
     public List<Tile> TileList = new List<Tile>();
     public Tile randomTile;
+    public GameObject randomPrefab;
 
 	private List<Vector2> LibWalkableTileVectors = new List<Vector2>();
 	private List<TileBase> LibUnWalkableTileBases = new List<TileBase>();
@@ -41,6 +42,11 @@ public class RoomControl : MonoBehaviour
         gridID = GetComponent<GridID>();
 
         WallMaker();
+
+        if (testmode)
+        {
+            RoomSelection(true);
+        }
         
     }
 
@@ -173,8 +179,12 @@ public class RoomControl : MonoBehaviour
                 }
             }
         }
+        //RandomOpenPrefabPlacement(_tilemap, randomPrefab);
 
-        //RandomOpenTilePlacement(_tilemap, randomTile);
+        if (isStartingRoom)
+        {
+            RandomOpenPrefabPlacement(_tilemap, randomPrefab);
+        }
 
         if (isEndingRoom)
         {
@@ -204,7 +214,7 @@ public class RoomControl : MonoBehaviour
                     Vector3Int tilePos = Vector3Int.zero; // because 0 is offset
                     tilePos.x = x + _bounds.xMin;
                     tilePos.y = y + _bounds.yMin;
-                
+
                     openTiles.Add(tilePos);
                 }
             }
@@ -229,7 +239,10 @@ public class RoomControl : MonoBehaviour
 
     private void RandomOpenPrefabPlacement(Tilemap _tilemap, GameObject _preFab)
     {
-        Vector3Int openSpot = RandomOpenSpot(_tilemap);
+        Vector3 openSpot = RandomOpenSpot(_tilemap);
+        openSpot.x += 0.5f;
+        openSpot.y += 0.5f;
+
         // Vector3Int cellPosition = _tilemap.WorldToCell(openSpot);
         // var prefabPos = _tilemap.GetCellCenterWorld(cellPosition);
 
