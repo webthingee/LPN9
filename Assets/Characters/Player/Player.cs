@@ -8,6 +8,11 @@ public class Player : Character
     {
         base.Start();
 	}
+
+    void OnDestroy()
+    {
+        Debug.Log("Destroyed");
+    }
 	
 
 }
