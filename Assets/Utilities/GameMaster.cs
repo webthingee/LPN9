@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Pathfinding;
+using Cinemachine;
 
 public class GameMaster : MonoBehaviour 
 {
@@ -15,6 +16,7 @@ public class GameMaster : MonoBehaviour
     public GameObject pathTakerObj;
     public GameObject gameMaze;
     public GameObject gameGrid;
+    public GameObject cameras;
     public GameObject loadingCanvas;
     public GameObject pauseCanvas;
 
@@ -31,6 +33,8 @@ public class GameMaster : MonoBehaviour
     [Header("Dynamic Properties")]
     [SerializeField] public GameObject startingRoom;
     [SerializeField] public GameObject endingRoom;
+    CinemachineVirtualCamera vcam;
+    CinemachineBasicMultiChannelPerlin noise;
 
     void Awake() 
     { 
@@ -80,6 +84,7 @@ public class GameMaster : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.L))
         {
             ManagePrefs.MP.Gold ++;
+            StartCoroutine(CameraShake(0.4f, 0.2f, 0.2f));
         }
 
         if (Input.GetKeyUp(KeyCode.K))
@@ -227,4 +232,30 @@ public class GameMaster : MonoBehaviour
     }
 
     #endregion
+
+    public void ShakeCamera ()
+    {
+        StartCoroutine(CameraShake(0.4f, 0.2f, 0.5f));
+    }
+
+    public IEnumerator CameraShake (float _duration, float _magnitude, float _freq)
+    {
+        vcam = GameObject.Find("Camera Control").GetComponent<CinemachineVirtualCamera> ();
+        noise = vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        float elpased = 0.0f;
+
+        while (elpased < _duration)
+        {
+            noise.m_AmplitudeGain = Random.Range(-1, 1) * _magnitude;
+            noise.m_FrequencyGain = Random.Range(-1, 1) * _freq; 
+            
+            elpased += Time.deltaTime;
+
+            yield return null;
+        }
+
+        noise.m_AmplitudeGain = 0;
+        noise.m_FrequencyGain = 0;
+    }
+
 }

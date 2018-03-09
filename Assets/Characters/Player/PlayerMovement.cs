@@ -26,7 +26,7 @@ public class PlayerMovement : CharacterMovement
         }
 
         /// Wall Climb
-        if (Input.GetKey(KeyCode.X))
+        if (Input.GetButton("Utility"))
         {
             if (isRight || isLeft)
             {

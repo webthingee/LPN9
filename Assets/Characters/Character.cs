@@ -40,6 +40,7 @@ public class Character : MonoBehaviour, IDamageable
         if (CharHealth < 0)
         {
             Instantiate(deathEffect, transform.position, Quaternion.identity, null);
+            GameMaster.GM.ShakeCamera();
             Destroy(this.gameObject);
         }
     }

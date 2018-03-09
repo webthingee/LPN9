@@ -27,11 +27,11 @@ public class FiringCtrl : MonoBehaviour
 		}
 
         /// Fire Rope
-        if (Input.GetAxisRaw("Vertical") > 0 && Input.GetButtonDown("Utility") && canFireRope)
-		{			
-			canFireRope = false;
-            FireRope(transform.up, weapon.TimeBetweenHits);
-		}
+        // if (Input.GetAxisRaw("Vertical") > 0 && Input.GetButtonDown("Utility") && canFireRope)
+		// {			
+		// 	canFireRope = false;
+        //     FireRope(transform.up, weapon.TimeBetweenHits);
+		// }
     }
 
     public void PullTrigger ()
