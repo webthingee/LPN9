@@ -44,14 +44,6 @@ public class Projectile : MonoBehaviour
 			{
 				(damageableComponent as IDamageable).TakeDamage(2);
 			}
-			//Impact();
 		}
-	}
-
-	void Impact()
-	{
-		var impactPoint = transform.position;
-		Instantiate(impactEffect, impactPoint, impactEffect.transform.rotation);
-		Destroy(this.gameObject);
 	}
 }

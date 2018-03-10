@@ -6,8 +6,11 @@ public class ManagePrefs : MonoBehaviour
 {
     public static ManagePrefs MP = null;
 
-    [SerializeField] int obol;
-    string obolPP = "Obols";
+    [SerializeField] int currentObols;
+    [SerializeField] int highestObols;
+    string obolPP = "Obols";    
+    [SerializeField] int allTimeObols;
+    string allTimeObolsPP = "AllTimeObols";
     [SerializeField] int gamesPlayed;
     string gamesPlayedPP = "Games_Played";
 
@@ -15,28 +18,26 @@ public class ManagePrefs : MonoBehaviour
     {
         get
         {
-            return obol;
-        }
-
-        set
-        {
-            obol = value;
-            PlayerPrefs.SetInt(obolPP, obol);
+            return currentObols;
         }
     }
 
-    public int GamesPlayed
+    public void AddObols (int _value)
     {
-        get
-        {
-            return gamesPlayed;
-        }
+        currentObols += _value;
+        CheckHighScore();
+        
+        int currentAllTimeObols = PlayerPrefs.GetInt(allTimeObolsPP);
+        currentAllTimeObols += _value;
 
-        set
-        {
-            gamesPlayed = value;
-            PlayerPrefs.SetInt(gamesPlayedPP, gamesPlayed);
-        }
+        PlayerPrefs.SetInt(allTimeObolsPP, currentAllTimeObols);
+        allTimeObols = PlayerPrefs.GetInt(allTimeObolsPP);
+    }
+
+    public void AddAPlayedGame ()
+    {
+        gamesPlayed++;
+        PlayerPrefs.SetInt(gamesPlayedPP, gamesPlayed);
     }
 
     void Awake()
@@ -55,36 +56,45 @@ public class ManagePrefs : MonoBehaviour
 
     void Init ()
     {
-        if (PlayerPrefs.HasKey(obolPP))
+        if (!PlayerPrefs.HasKey(obolPP))
         {
-            obol = PlayerPrefs.GetInt(obolPP);
+            PlayerPrefs.SetInt(obolPP, 0);
+        }
+        if (!PlayerPrefs.HasKey(gamesPlayedPP))
+        {
+            PlayerPrefs.SetInt(gamesPlayedPP, 0);
+        }
+        if (!PlayerPrefs.HasKey(allTimeObolsPP))
+        {
+            PlayerPrefs.SetInt(allTimeObolsPP, 0);
         }
         
-        if (PlayerPrefs.HasKey(gamesPlayedPP))
+        currentObols = 0;
+        gamesPlayed = GetGamesPlayed();
+        highestObols = GetHighObols();
+        allTimeObols = GetAllTimeObols();
+    }
+
+    void CheckHighScore ()
+    {
+        if (currentObols > GetHighObols())
         {
-            gamesPlayed = PlayerPrefs.GetInt(gamesPlayedPP);
+            PlayerPrefs.SetInt(obolPP, currentObols);
         }
     }
 
-    // void PPLoad ()
-    // {
-    //     foreach (var pp in PPs())
-    //     {
-    //         if (PlayerPrefs.HasKey(pp.Key))
-    //         {
-    //             pp.Value = PlayerPrefs.GetInt(pp.Key);
-    //         } 
-    //     }
-    // }
+    public int GetHighObols ()
+    {
+        return PlayerPrefs.GetInt(obolPP); 
+    }
 
-    // Dictionary<string, int> PPs ()
-    // {
-    //     Dictionary<string, int> list = new Dictionary<string, int>();
-    //         list.Add(goldPP, ref gold);
-    //         list.Add(gamesPlayedPP, ref gamesPlayed);
+    public int GetAllTimeObols ()
+    {
+        return PlayerPrefs.GetInt(allTimeObolsPP); 
+    }
 
-    //     return list;
-    // }
-    
-
+    public int GetGamesPlayed ()
+    {
+        return PlayerPrefs.GetInt(gamesPlayedPP); 
+    }
 }

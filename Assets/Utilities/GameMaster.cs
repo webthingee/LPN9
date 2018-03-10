@@ -86,13 +86,7 @@ public class GameMaster : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.L))
         {
-            ManagePrefs.MP.Obols ++;
             StartCoroutine(CameraShake(0.4f, 0.2f, 0.2f));
-        }
-
-        if (Input.GetKeyUp(KeyCode.K))
-        {
-            ManagePrefs.MP.Obols --;
         }
     }
 
@@ -136,7 +130,7 @@ public class GameMaster : MonoBehaviour
     public void GameOverManager ()
     {
         GameMaster.GM.gameIsOver = true;
-        StartCoroutine(GameOver(1f));
+        StartCoroutine(GameOver(2f));
     }
 
     #endregion
@@ -144,7 +138,7 @@ public class GameMaster : MonoBehaviour
     #region Load Sequence Management
     IEnumerator ActivateAstar ()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         
         if (!mazeEndCreated)
             StartCoroutine(ActivateAstar());
@@ -203,7 +197,7 @@ public class GameMaster : MonoBehaviour
         {
             loadingCanvas.SetActive(false);
             gameInProgress = true;
-            ManagePrefs.MP.GamesPlayed++;
+            ManagePrefs.MP.AddAPlayedGame();
         }
     }
     #endregion
@@ -275,6 +269,10 @@ public class GameMaster : MonoBehaviour
     {
         yield return new WaitForSeconds(_wait);
         
+        gameOverCanvas.SetActive(true);
+
+        yield return new WaitForSeconds(_wait * 2);
+
         if (!isShaking)
         {
             LoadGameMenu();

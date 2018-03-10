@@ -14,7 +14,7 @@ public class HUD : MonoBehaviour
 
     void Update ()
     {
-        healthTXT.text = "All Time Levels Played = " + ManagePrefs.MP.GamesPlayed.ToString();
-        obolsTXT.text = "All Time Coins Collected = " + ManagePrefs.MP.Obols.ToString();
+        healthTXT.text = "Life : ";
+        obolsTXT.text = "Obols = " + ManagePrefs.MP.Obols.ToString();
     } 
 }

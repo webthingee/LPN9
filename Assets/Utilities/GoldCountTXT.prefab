@@ -60,7 +60,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Gold Coins Collected: 000'
+  m_Text: Highest
 --- !u!222 &222531273687906310
 CanvasRenderer:
   m_ObjectHideFlags: 1

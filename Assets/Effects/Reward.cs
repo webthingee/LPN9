@@ -11,7 +11,7 @@ public class Reward : MonoBehaviour
 	{
 		if (other.tag == "Player")
 		{
-			ManagePrefs.MP.Obols++;
+			ManagePrefs.MP.AddObols(1);
             Impact();
 		}
 	}

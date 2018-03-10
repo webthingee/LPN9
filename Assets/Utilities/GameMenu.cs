@@ -7,19 +7,16 @@ using UnityEngine.SceneManagement;
 public class GameMenu : MonoBehaviour 
 {
     public Text gameCount;
-    public Text coinCount;
-
-    void Start()
-    {
-        gameCount.text = "All Time Levels Played = " + ManagePrefs.MP.GamesPlayed.ToString();
-        coinCount.text = "All Time Coins Collected = " + ManagePrefs.MP.Obols.ToString();
-    }
+    public Text obolHighCount;
+    public Text obolAllTimeCount;
 
     void OnEnable ()
     {
+        gameCount.text = "Games Played = " + ManagePrefs.MP.GetGamesPlayed().ToString();
+        obolHighCount.text = "Highest Obols = " + ManagePrefs.MP.GetHighObols().ToString();
+        obolAllTimeCount.text = "All Time Obols = " + ManagePrefs.MP.GetAllTimeObols().ToString();
+    
         Time.timeScale = 0f;
-        gameCount.text = "All Time Levels Played = " + ManagePrefs.MP.GamesPlayed.ToString();
-        coinCount.text = "All Time Coins Collected = " + ManagePrefs.MP.Obols.ToString();
     } 
 
     void OnDisable ()
