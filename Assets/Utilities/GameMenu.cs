@@ -18,6 +18,8 @@ public class GameMenu : MonoBehaviour
     void OnEnable ()
     {
         Time.timeScale = 0f;
+        gameCount.text = "All Time Levels Played = " + ManagePrefs.MP.GamesPlayed.ToString();
+        coinCount.text = "All Time Coins Collected = " + ManagePrefs.MP.Gold.ToString();
     } 
 
     void OnDisable ()
@@ -27,11 +29,13 @@ public class GameMenu : MonoBehaviour
 
     public void LoadGame ()
     {
+        Debug.Log("Load Game");
         SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
 
     public void LoadGameMenu ()
     {
+        Debug.Log("Load Game Menu");
         SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 

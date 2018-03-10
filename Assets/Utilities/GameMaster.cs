@@ -19,6 +19,7 @@ public class GameMaster : MonoBehaviour
     public GameObject cameras;
     public GameObject loadingCanvas;
     public GameObject pauseCanvas;
+    public GameObject gameOverCanvas;
 
     [Header("Dynamic Booleans")]
     public bool mazeBaseCreated;
@@ -29,12 +30,14 @@ public class GameMaster : MonoBehaviour
     public bool roomsBuilt;
     public bool playerActive;
     public bool gameInProgress;
+    public bool gameIsOver;
 
     [Header("Dynamic Properties")]
     [SerializeField] public GameObject startingRoom;
     [SerializeField] public GameObject endingRoom;
     CinemachineVirtualCamera vcam;
     CinemachineBasicMultiChannelPerlin noise;
+    private bool isShaking;
 
     void Awake() 
     { 
@@ -98,6 +101,7 @@ public class GameMaster : MonoBehaviour
     {
         pauseCanvas.SetActive(false);
         loadingCanvas.SetActive(false);
+        gameOverCanvas.SetActive(false);
         gameMaze.SetActive(false);
         gameGrid.SetActive(false);
     }
@@ -127,8 +131,12 @@ public class GameMaster : MonoBehaviour
     void PauseGame ()
     {
         pauseCanvas.SetActive(true);
-        // set canvas to active
-        // while loop for if canvas is active Time.timescale = 0;
+    }
+
+    public void GameOverManager ()
+    {
+        GameMaster.GM.gameIsOver = true;
+        StartCoroutine(GameOver(1f));
     }
 
     #endregion
@@ -227,6 +235,7 @@ public class GameMaster : MonoBehaviour
         PropList.Add(roomsBuilt);
         PropList.Add(playerActive);
         PropList.Add(gameInProgress);
+        PropList.Add(gameIsOver);
 
         return PropList;
     }
@@ -240,6 +249,7 @@ public class GameMaster : MonoBehaviour
 
     public IEnumerator CameraShake (float _duration, float _magnitude, float _freq)
     {
+        isShaking = true;
         vcam = GameObject.Find("Camera Control").GetComponent<CinemachineVirtualCamera> ();
         noise = vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         float elpased = 0.0f;
@@ -250,12 +260,29 @@ public class GameMaster : MonoBehaviour
             noise.m_FrequencyGain = Random.Range(-1, 1) * _freq; 
             
             elpased += Time.deltaTime;
+            isShaking = true;
 
             yield return null;
         }
 
+        isShaking = false;
+
         noise.m_AmplitudeGain = 0;
         noise.m_FrequencyGain = 0;
+    }
+
+    IEnumerator GameOver (float _wait)
+    {
+        yield return new WaitForSeconds(_wait);
+        
+        if (!isShaking)
+        {
+            LoadGameMenu();
+        }
+        else
+        {
+            StartCoroutine(GameOver(_wait));
+        }
     }
 
 }

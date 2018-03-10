@@ -7,6 +7,7 @@ public class Character : MonoBehaviour, IDamageable
     [SerializeField] string charName;
     [SerializeField] float charHealth;
     [SerializeField] float charStrength;
+    [SerializeField] int baseDamage = 1;
 
     public GameObject deathEffect;
 
@@ -41,6 +42,7 @@ public class Character : MonoBehaviour, IDamageable
         {
             Instantiate(deathEffect, transform.position, Quaternion.identity, null);
             GameMaster.GM.ShakeCamera();
+            GameMaster.GM.GameOverManager();
             Destroy(this.gameObject);
         }
     }
@@ -67,6 +69,18 @@ public class Character : MonoBehaviour, IDamageable
             yield return new WaitForSeconds(_wait);
         }
         sr.color = origColor;
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        Component damageableComponent = other.gameObject.GetComponent(typeof(IDamageable)); // nullable value
+		if (other.gameObject.tag == "Player")
+		{
+			if (damageableComponent)
+			{
+				(damageableComponent as IDamageable).TakeDamage(baseDamage);
+			}
+        }
     }
 
 }
