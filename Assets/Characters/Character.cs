@@ -7,7 +7,6 @@ public class Character : MonoBehaviour, IDamageable
     [SerializeField] string charName;
     [SerializeField] float charHealth;
     [SerializeField] float charStrength;
-    [SerializeField] int baseDamage = 1;
 
     public GameObject deathEffect;
 
@@ -36,13 +35,11 @@ public class Character : MonoBehaviour, IDamageable
     public void TakeDamage(float _amount)
     {
         CharHealth -= _amount;
-        StartCoroutine(Flash(0.05f, 3));
+        DamageResults(this.gameObject.tag);
 
         if (CharHealth < 0)
         {
-            Instantiate(deathEffect, transform.position, Quaternion.identity, null);
-            GameMaster.GM.ShakeCamera();
-            GameMaster.GM.GameOverManager();
+            DeathResults(this.gameObject.tag);
             Destroy(this.gameObject);
         }
     }
@@ -71,16 +68,24 @@ public class Character : MonoBehaviour, IDamageable
         sr.color = origColor;
     }
 
-    void OnCollisionEnter2D(Collision2D other)
+    void DamageResults (string _tag)
     {
-        Component damageableComponent = other.gameObject.GetComponent(typeof(IDamageable)); // nullable value
-		if (other.gameObject.tag == "Player")
-		{
-			if (damageableComponent)
-			{
-				(damageableComponent as IDamageable).TakeDamage(baseDamage);
-			}
-        }
+        StartCoroutine(Flash(0.05f, 3));
+        
+        if (_tag == "Player")
+        {
+            Debug.Log("player injured");
+        }   
+    }   
+    
+    void DeathResults (string _tag)
+    {
+        Instantiate(deathEffect, transform.position, Quaternion.identity, null);
+        GameMaster.GM.ShakeCamera();
+        
+        if (_tag == "Player")
+        {
+            GameMaster.GM.GameOverManager();
+        }   
     }
-
 }

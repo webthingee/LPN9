@@ -13,6 +13,16 @@ public class Player : Character
     {
         Debug.Log("Destroyed");
     }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        Debug.Log(other.gameObject.name);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log(other.gameObject.name);
+    }
 	
 
 }

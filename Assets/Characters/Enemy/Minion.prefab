@@ -267,6 +267,7 @@ MonoBehaviour:
   charStrength: 0
   deathEffect: {fileID: 1415748730681946, guid: 8e53e878bdaa44449bf2ebec5a323cfd,
     type: 2}
+  damage: 1
 --- !u!212 &212704189579004922
 SpriteRenderer:
   m_ObjectHideFlags: 1
