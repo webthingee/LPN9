@@ -90,7 +90,8 @@ public class GameMaster : MonoBehaviour
         }
     }
 
-    #region Setup Management
+    #region         Setup Management
+
     public void PreSetup ()
     {
         pauseCanvas.SetActive(false);
@@ -130,12 +131,13 @@ public class GameMaster : MonoBehaviour
     public void GameOverManager ()
     {
         GameMaster.GM.gameIsOver = true;
-        StartCoroutine(GameOver(2f));
+        StartCoroutine(GameOver(1f));
     }
 
     #endregion
 
-    #region Load Sequence Management
+    #region         Load Sequence Management
+
     IEnumerator ActivateAstar ()
     {
         yield return new WaitForSeconds(1.5f);
@@ -179,9 +181,13 @@ public class GameMaster : MonoBehaviour
         }
         else
         {
-            player.transform.position = startingRoom.transform.position;
+            var rc = startingRoom.GetComponentInChildren<RoomContents>();
+            var placePlayer = rc.GetDepositPoint(rc.rewardSport, true);
+
+            player.transform.position = (Vector2)placePlayer;
             player.SetActive(true);
             playerActive = true;
+
         }
     }
 
@@ -202,7 +208,7 @@ public class GameMaster : MonoBehaviour
     }
     #endregion
 
-    #region Properties Management
+    #region         Properties Management
 
     public void AllPropToFalse ()
     {

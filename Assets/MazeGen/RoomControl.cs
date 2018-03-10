@@ -254,16 +254,18 @@ public class RoomControl : MonoBehaviour
     {
         //RandomOpenPrefabPlacement(_tilemap, randomPrefab);
 
-        if (!isStartingRoom)
-        {
-            RandomOpenPrefabPlacement(_tilemap, randomPrefab);
-        }
-
         if (isEndingRoom)
         {
-            RandomOpenPrefabPlacement(_tilemap, exitPrefab);
+            //RandomOpenPrefabPlacement(_tilemap, exitPrefab);
+            var rc = GetComponentInChildren<RoomContents>();
+            //var placePlayer = rc.GetDepositPoint(rc.rewardSport, true);
+            rc.DepositAtRewardPoint(exitPrefab, true);
+            // player.transform.position = (Vector2)placePlayer;
+            // player.SetActive(true);
+            // playerActive = true;
         }
 
+        // Place a light if on the path to the exit
         if (isOnCompletionPath)
         {
             RandomOpenPrefabPlacement(_tilemap, lightPrefab);

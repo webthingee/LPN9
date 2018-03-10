@@ -17,6 +17,7 @@ public class RoomContents : MonoBehaviour
     public List<Transform> lightSpots = new List<Transform>();
     public GameObject[] lightPrefabs;
 
+
     void Start()
     {
         DepositInRoom(enemySpots, enemyPrefabs, maxEnemyPlace);
@@ -26,7 +27,7 @@ public class RoomContents : MonoBehaviour
         if (GetComponentInParent<RoomControl>().isOnCompletionPath)
         {
             DepositInRoom(lightSpots, lightPrefabs, 1);
-        }
+        }        
     }
 
     void DepositInRoom (List<Transform> _spots, GameObject[] _objects, int _repeat)
@@ -38,11 +39,55 @@ public class RoomContents : MonoBehaviour
                 int randSpot = Random.Range(0, _spots.Count);
                 int randObj = Random.Range(0, _objects.Length);
         
-                Instantiate(_objects[randObj], _spots[randSpot].position, Quaternion.identity);
+                Instantiate(_objects[randObj], _spots[randSpot].position, Quaternion.identity, transform);
             
                 _spots.RemoveAt(randSpot);
             }
             _repeat --;
+        }
+    }
+
+    public Vector2? GetDepositPoint (List<Transform> _spots, bool _removePoint)
+    {
+        Vector2 point;
+        int randSpot = Random.Range(0, _spots.Count);
+
+        if (_spots.Count > 0)
+        {            
+            _spots.RemoveAt(randSpot);
+            point = _spots[randSpot].position;
+        }
+        else
+        {
+            Debug.LogError("GetDepositPoint: no " 
+                + _spots.Count + " available points in "
+                + this.gameObject.name);
+            return null;
+        }
+
+        if (_removePoint)
+        {
+            _spots.RemoveAt(randSpot);
+        }
+
+        return point;
+    }
+
+    public void DepositAtRewardPoint (GameObject _object, bool _removePoint)
+    {
+        int randSpot = Random.Range(0, rewardSport.Count);        
+        if (rewardSport.Count > 0)
+        {
+            Instantiate(_object, rewardSport[randSpot].position, Quaternion.identity, transform);
+        }
+        else
+        {
+            Debug.LogError("DepositAtRewardPoint: Error");
+        }
+
+        if (_removePoint)
+        {
+            rewardSport.RemoveAt(randSpot);
         }
     }
 
