@@ -6,22 +6,22 @@ public class ManagePrefs : MonoBehaviour
 {
     public static ManagePrefs MP = null;
 
-    [SerializeField] int gold;
-    string goldPP = "Gold";
+    [SerializeField] int obol;
+    string obolPP = "Obols";
     [SerializeField] int gamesPlayed;
     string gamesPlayedPP = "Games_Played";
 
-    public int Gold
+    public int Obols
     {
         get
         {
-            return gold;
+            return obol;
         }
 
         set
         {
-            gold = value;
-            PlayerPrefs.SetInt(goldPP, gold);
+            obol = value;
+            PlayerPrefs.SetInt(obolPP, obol);
         }
     }
 
@@ -55,9 +55,9 @@ public class ManagePrefs : MonoBehaviour
 
     void Init ()
     {
-        if (PlayerPrefs.HasKey(goldPP))
+        if (PlayerPrefs.HasKey(obolPP))
         {
-            gold = PlayerPrefs.GetInt(goldPP);
+            obol = PlayerPrefs.GetInt(obolPP);
         }
         
         if (PlayerPrefs.HasKey(gamesPlayedPP))

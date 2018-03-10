@@ -19,26 +19,28 @@ public class RoomContents : MonoBehaviour
 
     void Start()
     {
-        DepositAnEnemy(enemySpots, enemyPrefabs, maxEnemyPlace);
+        DepositInRoom(enemySpots, enemyPrefabs, maxEnemyPlace);
+        
+        DepositInRoom(rewardSport, rewardPrefabs, maxRewardsPlace);
+        
         if (GetComponentInParent<RoomControl>().isOnCompletionPath)
         {
-            DepositAnEnemy(lightSpots, lightPrefabs, 1);
+            DepositInRoom(lightSpots, lightPrefabs, 1);
         }
     }
 
-    void DepositAnEnemy (List<Transform> _spots, GameObject[] _objects, int _repeat)
+    void DepositInRoom (List<Transform> _spots, GameObject[] _objects, int _repeat)
     {
         while (_repeat >= 1)
         {
             if (_spots.Count > 0)
             {
-                 int randSpot = Random.Range(0, _spots.Count);
+                int randSpot = Random.Range(0, _spots.Count);
                 int randObj = Random.Range(0, _objects.Length);
         
                 Instantiate(_objects[randObj], _spots[randSpot].position, Quaternion.identity);
             
                 _spots.RemoveAt(randSpot);
-                //_objects.RemoveAt(randObj); 
             }
             _repeat --;
         }

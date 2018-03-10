@@ -12,14 +12,14 @@ public class GameMenu : MonoBehaviour
     void Start()
     {
         gameCount.text = "All Time Levels Played = " + ManagePrefs.MP.GamesPlayed.ToString();
-        coinCount.text = "All Time Coins Collected = " + ManagePrefs.MP.Gold.ToString();
+        coinCount.text = "All Time Coins Collected = " + ManagePrefs.MP.Obols.ToString();
     }
 
     void OnEnable ()
     {
         Time.timeScale = 0f;
         gameCount.text = "All Time Levels Played = " + ManagePrefs.MP.GamesPlayed.ToString();
-        coinCount.text = "All Time Coins Collected = " + ManagePrefs.MP.Gold.ToString();
+        coinCount.text = "All Time Coins Collected = " + ManagePrefs.MP.Obols.ToString();
     } 
 
     void OnDisable ()

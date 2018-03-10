@@ -86,13 +86,13 @@ public class GameMaster : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.L))
         {
-            ManagePrefs.MP.Gold ++;
+            ManagePrefs.MP.Obols ++;
             StartCoroutine(CameraShake(0.4f, 0.2f, 0.2f));
         }
 
         if (Input.GetKeyUp(KeyCode.K))
         {
-            ManagePrefs.MP.Gold --;
+            ManagePrefs.MP.Obols --;
         }
     }
 
