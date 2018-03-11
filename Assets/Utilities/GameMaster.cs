@@ -107,6 +107,17 @@ public class GameMaster : MonoBehaviour
         gameMaze.SetActive(true);
         gameGrid.SetActive(true);
         
+        ManagePrefs.MP.ObolsCurrent = 0;
+        ManagePrefs.MP.KillsCurrent = 0;
+
+        ManagePrefs.MP.GetGamesPlayed();
+
+        ManagePrefs.MP.GetHighObols();
+        ManagePrefs.MP.GetHighKills();
+
+        ManagePrefs.MP.GetAllTimeObols();
+        ManagePrefs.MP.GetAllTimeKills();
+
         StartCoroutine(ActivateAstar());
         StartCoroutine(BuildRooms());
         StartCoroutine(ActivatePlayer());

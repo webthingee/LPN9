@@ -12,15 +12,25 @@ public class GameMenu : MonoBehaviour
     public Text killsHighCount;
     public Text killsAllTimeCount;
 
-    void OnEnable ()
+    public Text recapTXT;
+
+    void Awake ()
     {
-        gameCount.text = "Games = " + ManagePrefs.MP.GetGamesPlayed().ToString();
+        gameCount.text = "Total Games = " + ManagePrefs.MP.GetGamesPlayed().ToString();
         
         obolHighCount.text = "Highest Obols = " + ManagePrefs.MP.GetHighObols().ToString();
         obolAllTimeCount.text = "All Time Obols = " + ManagePrefs.MP.GetAllTimeObols().ToString();
     
         killsHighCount.text = "Highest Kills = " + ManagePrefs.MP.GetHighKills().ToString();
         killsAllTimeCount.text = "All Time Kills = " + ManagePrefs.MP.GetAllTimeKills().ToString();
+
+        if (ManagePrefs.MP.KillsCurrent > 0 || ManagePrefs.MP.ObolsCurrent > 0)
+        {
+            recapTXT.text = 
+            "You have begun this adventure " + ManagePrefs.MP.GetGamesPlayed().ToString() + " times." 
+            + "\n" + "This time you defeated " + ManagePrefs.MP.KillsCurrent + " DragZards."
+            + "\n" + "You also gathered " + ManagePrefs.MP.ObolsCurrent + " Obols";
+        }
 
         Time.timeScale = 0f;
     } 

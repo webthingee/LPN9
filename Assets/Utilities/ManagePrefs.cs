@@ -6,26 +6,32 @@ public class ManagePrefs : MonoBehaviour
 {
     public static ManagePrefs MP = null;
 
-    [SerializeField] int currentObols = 0;
+    [SerializeField] int gamesPlayed;
+    string gamesPlayedPP = "Games_Played"; 
+    
     [SerializeField] int highestObols;
     string obolPP = "Obols";    
     [SerializeField] int allTimeObols;
     string allTimeObolsPP = "AllTimeObols";
-
-    [SerializeField] int gamesPlayed;
-    string gamesPlayedPP = "Games_Played"; 
     
-    [SerializeField] int currentKills = 0;
     [SerializeField] int highestKills;
     string killsPP = "Kills";
     [SerializeField] int allTimeKills;
     string allTimeKillsPP = "Kill_Count_All_Time";
+
+    [SerializeField] int currentObols = 0;
+    [SerializeField] int currentKills = 0;
+
 
     public int ObolsCurrent
     {
         get
         {
             return currentObols;
+        }
+        set
+        {
+            currentObols = value;
         }
     }
 
@@ -35,6 +41,29 @@ public class ManagePrefs : MonoBehaviour
         {
             return currentKills;
         }
+        set
+        {
+            currentKills = value;
+        }
+    }
+
+    void Awake()
+    {
+        if (MP == null)
+            MP = this;
+        
+        else if (MP != this)
+            Destroy(gameObject);    
+        
+        DontDestroyOnLoad(gameObject);
+
+        // One Time Setup
+        Init();
+    }
+
+    void Init ()
+    {
+        PlayerPrefsManage();
     }
 
     public void AddObols (int _value)
@@ -65,36 +94,6 @@ public class ManagePrefs : MonoBehaviour
     {
         gamesPlayed++;
         PlayerPrefs.SetInt(gamesPlayedPP, gamesPlayed);
-    }
-
-    void Awake()
-    {
-        if (MP == null)
-            MP = this;
-        
-        else if (MP != this)
-            Destroy(gameObject);    
-        
-        DontDestroyOnLoad(gameObject);
-
-        // One Time Setup
-        Init();
-    }
-
-    void Init ()
-    {
-        PlayerPrefsRestart();
-
-        currentObols = 0;
-        currentKills = 0;
-
-        GetGamesPlayed();
-
-        GetHighObols();
-        GetHighKills();
-
-        GetAllTimeObols();
-        GetAllTimeKills();
     }
 
     private void PlayerPrefsManage ()
