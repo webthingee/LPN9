@@ -5,16 +5,23 @@ using UnityEngine.UI;
 
 public class HUD : MonoBehaviour 
 {
-    public Text healthTXT;
-    public Text obolsTXT;
-
-    void Start()
-    {
-    }
+    [SerializeField] Slider healthSliderGreen;
+    [SerializeField] Slider healthSliderYellow;
+    [SerializeField] Text obolsTXT;
+    [SerializeField] Text killCountTXT;
 
     void Update ()
     {
-        healthTXT.text = "Life : ";
-        obolsTXT.text = "Obols = " + ManagePrefs.MP.Obols.ToString();
+        if (!GameMaster.GM.gameIsOver)
+        {
+            obolsTXT.text = ManagePrefs.MP.ObolsCurrent.ToString();
+            killCountTXT.text = ManagePrefs.MP.KillsCurrent.ToString();
+
+            float batteryStrength = GameMaster.GM.player.GetComponent<Player>().CharHealth 
+                / GameMaster.GM.player.GetComponent<Player>().CharMaxHealth;
+
+            healthSliderGreen.value = batteryStrength;
+            healthSliderYellow.value = batteryStrength + 0.33f;
+        }
     } 
 }

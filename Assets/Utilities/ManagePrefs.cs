@@ -6,19 +6,34 @@ public class ManagePrefs : MonoBehaviour
 {
     public static ManagePrefs MP = null;
 
-    [SerializeField] int currentObols;
+    [SerializeField] int currentObols = 0;
     [SerializeField] int highestObols;
     string obolPP = "Obols";    
     [SerializeField] int allTimeObols;
     string allTimeObolsPP = "AllTimeObols";
-    [SerializeField] int gamesPlayed;
-    string gamesPlayedPP = "Games_Played";
 
-    public int Obols
+    [SerializeField] int gamesPlayed;
+    string gamesPlayedPP = "Games_Played"; 
+    
+    [SerializeField] int currentKills = 0;
+    [SerializeField] int highestKills;
+    string killsPP = "Kills";
+    [SerializeField] int allTimeKills;
+    string allTimeKillsPP = "Kill_Count_All_Time";
+
+    public int ObolsCurrent
     {
         get
         {
             return currentObols;
+        }
+    }
+
+    public int KillsCurrent
+    {
+        get
+        {
+            return currentKills;
         }
     }
 
@@ -32,6 +47,18 @@ public class ManagePrefs : MonoBehaviour
 
         PlayerPrefs.SetInt(allTimeObolsPP, currentAllTimeObols);
         allTimeObols = PlayerPrefs.GetInt(allTimeObolsPP);
+    }
+
+    public void AddKillCount (int _value)
+    {
+        currentKills += _value;
+        CheckHighKills();
+        
+        int currentAllTimeKills = PlayerPrefs.GetInt(allTimeKillsPP);
+        currentAllTimeKills += _value;
+
+        PlayerPrefs.SetInt(allTimeKillsPP, currentAllTimeKills);
+        allTimeKills = PlayerPrefs.GetInt(allTimeKillsPP);
     }
 
     public void AddAPlayedGame ()
@@ -56,23 +83,52 @@ public class ManagePrefs : MonoBehaviour
 
     void Init ()
     {
-        if (!PlayerPrefs.HasKey(obolPP))
-        {
-            PlayerPrefs.SetInt(obolPP, 0);
-        }
-        if (!PlayerPrefs.HasKey(gamesPlayedPP))
-        {
-            PlayerPrefs.SetInt(gamesPlayedPP, 0);
-        }
-        if (!PlayerPrefs.HasKey(allTimeObolsPP))
-        {
-            PlayerPrefs.SetInt(allTimeObolsPP, 0);
-        }
-        
+        PlayerPrefsRestart();
+
         currentObols = 0;
-        gamesPlayed = GetGamesPlayed();
-        highestObols = GetHighObols();
-        allTimeObols = GetAllTimeObols();
+        currentKills = 0;
+
+        GetGamesPlayed();
+
+        GetHighObols();
+        GetHighKills();
+
+        GetAllTimeObols();
+        GetAllTimeKills();
+    }
+
+    private void PlayerPrefsManage ()
+    {
+        PlayerPrefsStart(obolPP);
+        PlayerPrefsStart(gamesPlayedPP);
+        PlayerPrefsStart(allTimeObolsPP);
+        PlayerPrefsStart(allTimeKillsPP);
+        PlayerPrefsStart(killsPP);
+    }
+
+    public void PlayerPrefsRestart ()
+    {
+        PlayerPrefsReset(obolPP);
+        PlayerPrefsReset(gamesPlayedPP);
+        PlayerPrefsReset(allTimeObolsPP);
+        PlayerPrefsReset(allTimeKillsPP);
+        PlayerPrefsReset(killsPP);
+    }
+
+    private void PlayerPrefsStart (string _pref)
+    {
+        if (!PlayerPrefs.HasKey(_pref))
+        {
+            PlayerPrefs.SetInt(_pref, 0);
+        }
+    }
+
+    private void PlayerPrefsReset (string _pref)
+    {
+        if (PlayerPrefs.HasKey(_pref))
+        {
+            PlayerPrefs.SetInt(_pref, 0);
+        }
     }
 
     void CheckHighScore ()
@@ -83,18 +139,41 @@ public class ManagePrefs : MonoBehaviour
         }
     }
 
+    void CheckHighKills ()
+    {
+        if (currentKills > GetHighKills())
+        {
+            PlayerPrefs.SetInt(killsPP, currentKills);
+        }
+    }
+
     public int GetHighObols ()
     {
-        return PlayerPrefs.GetInt(obolPP); 
+        highestObols = PlayerPrefs.GetInt(obolPP);
+        return highestObols; 
+    }
+
+    public int GetHighKills ()
+    {
+        highestKills = PlayerPrefs.GetInt(killsPP);
+        return highestKills; 
     }
 
     public int GetAllTimeObols ()
     {
-        return PlayerPrefs.GetInt(allTimeObolsPP); 
+        allTimeObols =PlayerPrefs.GetInt(allTimeObolsPP);
+        return allTimeObols; 
+    }
+
+    public int GetAllTimeKills ()
+    {
+        allTimeKills = PlayerPrefs.GetInt(allTimeKillsPP);
+        return allTimeKills;
     }
 
     public int GetGamesPlayed ()
     {
-        return PlayerPrefs.GetInt(gamesPlayedPP); 
+        gamesPlayed = PlayerPrefs.GetInt(gamesPlayedPP); 
+        return gamesPlayed;
     }
 }

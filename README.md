@@ -11,3 +11,6 @@ Submission open from Today at 2:00 AM to March 12th 2018 at 3:00 AM
 * [Trello](https://trello.com/b/j2pV0jh9/lpn9)
 * [Mind Map](https://www.mindmeister.com/1048975360)
 * [Discord](https://discord.gg/uSRcBW8)
+
+## Game Elements
+* Power Drains over Time

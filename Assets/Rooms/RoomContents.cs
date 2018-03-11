@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class RoomContents : MonoBehaviour 
 {
-    public int maxEnemyPlace = 0;
-    public int maxRewardsPlace = 0;
-    public int maxLightsToPlace = 0;
+    int maxEnemyPlace = 0;
+    int maxRewardsPlace = 0;
+    public bool canFlipXAxis;
 
     public List<Transform> enemySpots = new List<Transform>();
     public GameObject[] enemyPrefabs;
@@ -14,20 +14,16 @@ public class RoomContents : MonoBehaviour
     public List<Transform> rewardSport = new List<Transform>();
     public GameObject[] rewardPrefabs;
 
-    public List<Transform> lightSpots = new List<Transform>();
-    public GameObject[] lightPrefabs;
-
+    void Awake()
+    {
+        maxEnemyPlace = enemySpots.Count - 1; // @TODO difficulty adjust
+        maxRewardsPlace = rewardSport.Count - 1;
+    }
 
     void Start()
     {
         DepositInRoom(enemySpots, enemyPrefabs, maxEnemyPlace);
-        
-        DepositInRoom(rewardSport, rewardPrefabs, maxRewardsPlace);
-        
-        if (GetComponentInParent<RoomControl>().isOnCompletionPath)
-        {
-            DepositInRoom(lightSpots, lightPrefabs, 1);
-        }        
+        DepositInRoom(rewardSport, rewardPrefabs, maxRewardsPlace);      
     }
 
     void DepositInRoom (List<Transform> _spots, GameObject[] _objects, int _repeat)
@@ -54,7 +50,6 @@ public class RoomContents : MonoBehaviour
 
         if (_spots.Count > 0)
         {            
-            _spots.RemoveAt(randSpot);
             point = _spots[randSpot].position;
         }
         else

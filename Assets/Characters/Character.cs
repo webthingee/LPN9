@@ -8,6 +8,7 @@ public class Character : MonoBehaviour, IDamageable
     [SerializeField] float charHealth;
     [SerializeField] float charStrength;
 
+    [SerializeField] float charMaxHealth;
     public GameObject deathEffect;
 
     SpriteRenderer sr;
@@ -24,6 +25,19 @@ public class Character : MonoBehaviour, IDamageable
         set
         {
             charHealth = value;
+        }
+    }
+
+    public float CharMaxHealth
+    {
+        get
+        {
+            return charMaxHealth;
+        }
+
+        set
+        {
+            charMaxHealth = value;
         }
     }
 
@@ -86,6 +100,11 @@ public class Character : MonoBehaviour, IDamageable
         if (_tag == "Player")
         {
             GameMaster.GM.GameOverManager();
+        }
+
+        if (_tag == "Enemy")
+        {
+             ManagePrefs.MP.AddKillCount(1);
         }   
     }
 }

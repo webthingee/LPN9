@@ -120,7 +120,7 @@ public class GridPlacement : MonoBehaviour
     {
         foreach (GameObject room in roomList)
         {
-            room.GetComponent<RoomControl>().RoomSelection(true);
+            room.GetComponent<RoomControl>().RoomSelection();
         }
     }    
 

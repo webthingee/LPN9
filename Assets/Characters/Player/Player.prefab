@@ -198,7 +198,7 @@ BoxCollider2D:
   m_Density: 1
   m_Material: {fileID: 6200000, guid: c25f9bdd9b761434084e8f8efdf818d7, type: 2}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0.025, y: -0.15}
   m_SpriteTilingProperty:
@@ -426,8 +426,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charName: 
-  charHealth: 1
+  charHealth: 3
   charStrength: 0
+  charMaxHealth: 3
   deathEffect: {fileID: 1553525767799460, guid: 3b9d58ed45ea34323bce825f3c9e4d63,
     type: 2}
 --- !u!212 &212463659962866792

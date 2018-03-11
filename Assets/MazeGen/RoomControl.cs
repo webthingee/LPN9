@@ -35,8 +35,6 @@ public class RoomControl : MonoBehaviour
 	private List<Vector2> LibWalkableTileVectors = new List<Vector2>();
 	private List<TileBase> LibUnWalkableTileBases = new List<TileBase>();
     private GridID gridID;
-	//BoundsInt bounds;
-	//TileBase[] allTiles;
 
 	void Start ()
     {
@@ -46,7 +44,7 @@ public class RoomControl : MonoBehaviour
 
         if (testmode)
         {
-            RoomSelection(true);
+            RoomSelection();
         }
         
     }
@@ -54,48 +52,48 @@ public class RoomControl : MonoBehaviour
     public void SetupOnPath ()
     {
         isOnCompletionPath = true;
-        
     }
 
-    public void RoomSelection(bool _allowRotation)
+    public void RoomSelection()
     {
-        List<GameObject> chooseFrom = RoomCategoryOptions();
+        List<GameObject> chooseRoomFrom = RoomCategoryOptions();
         
-        int rand = Random.Range(0, chooseFrom.Count);
-        
-        int rotRand = Random.Range(0, 101);
-        Quaternion rot = Quaternion.identity;
-        if (rotRand % 2 == 0 && _allowRotation)
-        {
-            rot = Quaternion.Euler(0, 180, 0);
-            isRotated = true;
-        }
-        
-        roomTilemap = chooseFrom[rand].GetComponent<Tilemap>();
+        int rand = Random.Range(0, chooseRoomFrom.Count);
+                
+        roomTilemap = chooseRoomFrom[rand].GetComponent<Tilemap>();
 
-        Instantiate(chooseFrom[rand], transform.position, rot, transform);
+        GameObject choosenRoom = Instantiate(chooseRoomFrom[rand], transform.position, Quaternion.identity, transform);
+
+        if (choosenRoom.GetComponent<RoomContents>().canFlipXAxis)
+        {
+            int rotRand = Random.Range(0, 101);
+            if (rotRand % 2 == 0)
+            {
+                choosenRoom.transform.rotation = Quaternion.Euler(0, 180, 0);
+                isRotated = true;
+            }
+        }
         RandomTileMaker(roomTilemap);
         PlaceStuff(roomTilemap);
     }
 
     List<GameObject> RoomCategoryOptions ()
     {
-        // if (gridID.mazeUnitCode.Contains("N") && gridID.mazeUnitCode.Contains("S"))
-        // {
-        //     return roomPrefabs.Walkways;
-        // }
-
-        if (gridID.passedGridID == 21010)
+        switch (gridID.passedGridID)
         {
-            return roomPrefabs.Walkways;
-        }
+            case 20101: // East and West Only
+                return roomPrefabs.r20101;
+            case 21010: // North and West Only
+                return roomPrefabs.r21010;            
+            case 20110: // East and Soutn Only
+                return roomPrefabs.r20110;
 
-        if (gridID.passedGridID == 20101)
-        {
-            return roomPrefabs.Drops;
-        }
+            case 30111: // Open North only
+                return roomPrefabs.r30111;
 
-        return roomPrefabs.Universal;
+            default:
+                return roomPrefabs.Universal;
+        }
     }
 
     private void WallMaker()
@@ -184,6 +182,8 @@ public class RoomControl : MonoBehaviour
         }
     }
 
+    #region     Random Open Spot
+
     private List<Vector3Int> RandomOpenSpots(Tilemap _tilemap) // multiple include hazard
     {        
         var _bounds = _tilemap.cellBounds;
@@ -248,7 +248,68 @@ public class RoomControl : MonoBehaviour
         ep.transform.localPosition = openSpot;
 
     }
+    #endregion
 
+    #region     Random Tiled Point
+
+    private List<Vector3Int> RandomTiledSpots(Tilemap _tilemap) // multiple include hazard
+    {        
+        var _bounds = _tilemap.cellBounds;
+        var _allTiles = _tilemap.GetTilesBlock(_bounds);
+        List<Vector3Int> TilePlaced = new List<Vector3Int>();
+        
+        for (int x = 0; x < _bounds.size.x; x++)
+        {
+            for (int y = 0; y < _bounds.size.y; y++)
+            {
+                TileBase tile = _allTiles[x + y * _bounds.size.x];
+                
+                if (tile != null)
+                {
+                    Vector3Int tilePos = Vector3Int.zero; // because 0 is offset
+                    tilePos.x = x + _bounds.xMin;
+                    tilePos.y = y + _bounds.yMin;
+
+                    if (-6 < tilePos.x && tilePos.x < 6)
+                    {
+                        if (-4 < tilePos.y && tilePos.y < 4)
+                        {
+                            TilePlaced.Add(tilePos);
+                        }                    
+                    }
+                }
+            }
+        }
+        return TilePlaced;
+    }
+
+    private Vector3Int RandomTiledSpot(Tilemap _tilemap)
+    {
+        var tiledSpots = RandomTiledSpots(_tilemap);
+
+        int rand = Random.Range(0, tiledSpots.Count);
+        
+        return tiledSpots[rand];
+    }
+
+    private void RandomTiledPrefabPlacement(Tilemap _tilemap, GameObject _preFab)
+    {
+        Vector3 TiledSpot = RandomTiledSpot(_tilemap);
+        TiledSpot.x += 0.5f;
+        TiledSpot.y += 0.5f;
+
+        if (isRotated)
+        {
+            TiledSpot.x *= -1;            
+        }
+
+        GameObject ep = Instantiate(_preFab, TiledSpot, Quaternion.identity, this.transform);
+        ep.transform.rotation = Quaternion.Euler(0,0,0);
+        ep.transform.localPosition = TiledSpot;
+
+    }
+
+    #endregion
 
     void PlaceStuff (Tilemap _tilemap)
     {
@@ -256,93 +317,14 @@ public class RoomControl : MonoBehaviour
 
         if (isEndingRoom)
         {
-            //RandomOpenPrefabPlacement(_tilemap, exitPrefab);
             var rc = GetComponentInChildren<RoomContents>();
-            //var placePlayer = rc.GetDepositPoint(rc.rewardSport, true);
             rc.DepositAtRewardPoint(exitPrefab, true);
-            // player.transform.position = (Vector2)placePlayer;
-            // player.SetActive(true);
-            // playerActive = true;
         }
 
         // Place a light if on the path to the exit
         if (isOnCompletionPath)
         {
-            RandomOpenPrefabPlacement(_tilemap, lightPrefab);
+            RandomTiledPrefabPlacement(_tilemap, lightPrefab); //orig
         }
     }
-    /* 
-	void CreateInnerWallsY(bool isEast)
-	{
-		Vector3Int wallMaker = new Vector3Int();
-        wallMaker.z = 0;
-		
-        if (!isEast)
-        {
-            wallMaker.x = bounds.xMin + Random.Range(5, 13);
-        }
-        else
-        {
-            wallMaker.x = -bounds.xMin - Random.Range(5, 13);
-        }
-
-        int startGap = Random.Range(-9, 6);
-
-        List<int> gap = new List<int>();
-        for (int i = 0; i < gapSize; i++)
-        {
-            gap.Add(i + startGap);
-        }
-
-		for (int i = bounds.yMin; i < -(bounds.yMin); i++)
-		{
-			wallMaker.y = i;
-            if (!gap.Contains(i))
-            {
-                tilemap.SetTile(wallMaker, innerWallTileY);
-            }
-            else
-            {
-                tilemap.SetTile(wallMaker, null);
-            }
-		}	
-    }
-
-    void CreateInnerWallsX(bool isNorth)
-	{
-		Vector3Int wallMaker = new Vector3Int();
-        wallMaker.z = 0;
-		
-        if (!isNorth)
-        {
-            wallMaker.y = -4; //bounds.yMin + Random.Range(3, 5);
-        }
-        else
-        {
-            wallMaker.y = 3; //-bounds.yMin - Random.Range(3, 5);
-
-        }
-
-        int startGap = Random.Range(-17, 13);
-
-        List<int> gap = new List<int>();
-        for (int i = 0; i < gapSize; i++)
-        {
-            gap.Add(i + startGap);
-        }
-
-		for (int i = bounds.xMin; i < -(bounds.xMin); i++)
-		{
-			wallMaker.x = i;
-            if (!gap.Contains(i))
-            {
-                tilemap.SetTile(wallMaker, innerWallTileX);
-            }
-            else
-            {
-                tilemap.SetTile(wallMaker, null);
-            }
-		}					
-	}
-    */  
 }

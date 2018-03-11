@@ -9,13 +9,19 @@ public class GameMenu : MonoBehaviour
     public Text gameCount;
     public Text obolHighCount;
     public Text obolAllTimeCount;
+    public Text killsHighCount;
+    public Text killsAllTimeCount;
 
     void OnEnable ()
     {
-        gameCount.text = "Games Played = " + ManagePrefs.MP.GetGamesPlayed().ToString();
+        gameCount.text = "Games = " + ManagePrefs.MP.GetGamesPlayed().ToString();
+        
         obolHighCount.text = "Highest Obols = " + ManagePrefs.MP.GetHighObols().ToString();
         obolAllTimeCount.text = "All Time Obols = " + ManagePrefs.MP.GetAllTimeObols().ToString();
     
+        killsHighCount.text = "Highest Kills = " + ManagePrefs.MP.GetHighKills().ToString();
+        killsAllTimeCount.text = "All Time Kills = " + ManagePrefs.MP.GetAllTimeKills().ToString();
+
         Time.timeScale = 0f;
     } 
 

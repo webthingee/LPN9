@@ -9,6 +9,10 @@ public class Player : Character
         base.Start();
 	}
 
+    void Update()
+    {
+        CharHealth -= Time.deltaTime / 100;
+    }
     // void OnDestroy()
     // {
     //     Debug.Log("Destroyed");
