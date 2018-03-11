@@ -54,7 +54,7 @@ public class GameMaster : MonoBehaviour
     {
         AllPropToFalse ();
         PreSetup ();
-        
+
         if (runSetup)
         {
             RunSetup();

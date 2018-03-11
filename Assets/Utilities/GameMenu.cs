@@ -14,6 +14,14 @@ public class GameMenu : MonoBehaviour
 
     public Text recapTXT;
 
+    public Toggle easy;
+    public Toggle mute;
+
+    [Header("Additional Canvas")]
+    public GameObject storyCanvas;
+    public bool showStoryPanel = false;
+
+
     void Awake ()
     {
         gameCount.text = "Total Games = " + ManagePrefs.MP.GetGamesPlayed().ToString();
@@ -31,6 +39,10 @@ public class GameMenu : MonoBehaviour
             + "\n" + "This time you defeated " + ManagePrefs.MP.KillsCurrent + " DragZards."
             + "\n" + "You also gathered " + ManagePrefs.MP.ObolsCurrent + " Obols";
         }
+
+        easy.isOn = ManagePrefs.MP.easyMode;
+        mute.isOn = ManagePrefs.MP.muteAudio;
+        
 
         Time.timeScale = 0f;
     } 
@@ -64,5 +76,33 @@ public class GameMenu : MonoBehaviour
     public void CloseCanvas ()
     {
         this.gameObject.SetActive(false);
+    }
+
+    public void PanelToggle (GameObject _canvas)
+    {
+        showStoryPanel = !showStoryPanel;
+        _canvas.SetActive(showStoryPanel);
+    }
+
+
+    public void MuteAudio ()
+    {
+        ManagePrefs.MP.muteAudio = ! ManagePrefs.MP.muteAudio;
+
+        if (ManagePrefs.MP.muteAudio)
+        {
+            AudioListener.volume = 0f;
+            AudioListener.pause = true;
+        }
+        else 
+        {
+            AudioListener.volume = 1f;
+            AudioListener.pause = false;
+        }
+    }
+
+    public void EasyMode ()
+    {
+        ManagePrefs.MP.easyMode = ! ManagePrefs.MP.easyMode;
     }
 }

@@ -1,18 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class ManagePrefs : MonoBehaviour 
 {
     public static ManagePrefs MP = null;
 
     [Header("Player Settings")]
-    [Range(1,3)] public int easyLevel;
-    [Range(1,5)] public int soundLevel;
-    public bool mute;
-
-    [Header("Additional Canvas")]
-    public GameObject storyCanvas;
+    public bool easyMode = true;    
+    public bool muteAudio = false;
 
     [Header("Player Pref Values")]
     [SerializeField] int gamesPlayed;
@@ -73,6 +70,8 @@ public class ManagePrefs : MonoBehaviour
     void Init ()
     {
         PlayerPrefsManage();
+        easyMode = true;
+        muteAudio = false;
     }
 
     public void AddObols (int _value)

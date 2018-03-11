@@ -22,7 +22,7 @@ An exit that leads to another maze.
 * Getting hit by a DragZard takes about a full battery of energy
 
 ## LPN9 : Hints
-* You are not the first, those who cam before left a breadcrumb through the exits
+* You are not the first, those who came before left a breadcrumb through the exits
 * There could be places to charge up, they may not be on the path, but they may help
 * You are going down into Underworld, so each level you start at the top, and need to find a safe way down.
 
