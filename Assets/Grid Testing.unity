@@ -802,7 +802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dc084afda4864c09883c88e6ec3d60f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSetup: 0
+  runSetup: 1
   player: {fileID: 1040642814}
   aStar: {fileID: 554806100}
   pathTakerObj: {fileID: 587310015}
@@ -3256,7 +3256,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1044033501198532, guid: b5c74dabf6b2e428381c04d769d54133, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1284158089308758, guid: b5c74dabf6b2e428381c04d769d54133, type: 2}
       propertyPath: m_IsActive
