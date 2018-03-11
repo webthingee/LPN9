@@ -16,7 +16,7 @@ public class RoomContents : MonoBehaviour
 
     void Awake()
     {
-        maxEnemyPlace = enemySpots.Count - 1; // @TODO difficulty adjust
+        maxEnemyPlace = enemySpots.Count - ManagePrefs.MP.easyLevel; // @TODO difficulty adjust
         maxRewardsPlace = rewardSport.Count - 1;
     }
 

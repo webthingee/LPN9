@@ -6,6 +6,15 @@ public class ManagePrefs : MonoBehaviour
 {
     public static ManagePrefs MP = null;
 
+    [Header("Player Settings")]
+    [Range(1,3)] public int easyLevel;
+    [Range(1,5)] public int soundLevel;
+    public bool mute;
+
+    [Header("Additional Canvas")]
+    public GameObject storyCanvas;
+
+    [Header("Player Pref Values")]
     [SerializeField] int gamesPlayed;
     string gamesPlayedPP = "Games_Played"; 
     
