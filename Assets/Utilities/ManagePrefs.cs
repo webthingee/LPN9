@@ -69,7 +69,6 @@ public class ManagePrefs : MonoBehaviour
 
     void Init ()
     {
-        PlayerPrefsManage();
         easyMode = true;
         muteAudio = false;
     }
