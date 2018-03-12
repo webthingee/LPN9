@@ -1,25 +1,19 @@
 ## LPN9
-The year is 3812.
-You were built with one purpose, to find and rescue Ada.
-Why a robot, because she is in Hades, and no one has ever returned.
-But maybe this little robot can.
+The year is 3812. You were built with one purpose, to find and rescue Ada.
+Why send a robot? Because the journey to Hades is probably impossible. But maybe this little robot can.
 
-You are making your way through the Underworld.
-You will encounter dangerous DragZards and Fire.
-You will have to traverse the many layers as you travle down.
+Remember, you are making your way through the Underworld. You will encounter dangerous DragZards and Fire. You will have to traverse the many layers as you travel down.
 
-Down, down, down until finding an exit for each maze.
-An exit that leads to another maze.
+Down, down, down until finding more and more doors down. Until you find an exit that leads to Ada.
 
 ## LPN9 : Controls
+* Use a Joystick! It's so much better.
 * A - Jump (keyboard space or c)
 * B - Electric Jolt (keyboard z)
 * Y - Hang on a wall (keyboard x)
 
 ## LPN9 : Game Elements
-* Your batteries are your life, without them you won't make it
-* Batteries Drain over Time, but are refilled upon being transported to a new level
-* Getting hit by a DragZard takes about a full battery of energy
+Your batteries are your life, without them you won't make it. Tjhey will drain over time, but are refilled upon being transported to a new level. Beware, getting hit by a DragZard takes about a full battery of energy
 
 ## LPN9 : Hints
 * You are not the first, those who came before left a breadcrumb through the exits

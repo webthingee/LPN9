@@ -286,6 +286,8 @@ MonoBehaviour:
   charMaxHealth: 0
   deathEffect: {fileID: 1415748730681946, guid: 8e53e878bdaa44449bf2ebec5a323cfd,
     type: 2}
+  damageSound: {fileID: 8300000, guid: 3c33b7d1803b34167b17c64e4c251df7, type: 3}
+  deathSound: {fileID: 8300000, guid: dc931bef9790c4ca68669ab91116d0de, type: 3}
   damage: 1
 --- !u!212 &212681968055304370
 SpriteRenderer:

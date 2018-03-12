@@ -152,8 +152,11 @@ MonoBehaviour:
   isEndingRoom: 0
   endingRoom: {fileID: 0}
   isOnCompletionPath: 0
+  isRotated: 0
   addRooms: 1
   testmode: 0
+  startPrefab: {fileID: 1641713367533540, guid: 851d2af1bdb8a4ddb933a92eb8617946,
+    type: 2}
   exitPrefab: {fileID: 1641713367533540, guid: 6a2eaae48e0834597be705c72d9535e0, type: 2}
   lightPrefab: {fileID: 1826562178941138, guid: 77ebd87011b8c435dbdc6d9543d16a55,
     type: 2}

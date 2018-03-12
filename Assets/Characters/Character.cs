@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Character : MonoBehaviour, IDamageable 
 {
@@ -11,8 +12,12 @@ public class Character : MonoBehaviour, IDamageable
     [SerializeField] float charMaxHealth;
     public GameObject deathEffect;
 
-    SpriteRenderer sr;
+    AudioSource audioOne; // from AudioMaster
+    AudioSource audioTwo; // from AudioMaster
+    public AudioClip damageSound;
+    public AudioClip deathSound;
 
+    SpriteRenderer sr;
     bool isQuitting;
 
     public float CharHealth
@@ -44,17 +49,24 @@ public class Character : MonoBehaviour, IDamageable
     protected virtual void Start () 
     {
         sr = GetComponentInChildren<SpriteRenderer>();
+        audioOne = GameObject.Find("Audio One").GetComponent<AudioSource>();
+        audioTwo = GameObject.Find("Audio Two").GetComponent<AudioSource>();
 	}
 
     public void TakeDamage(float _amount)
     {
         CharHealth -= _amount;
+        StartCoroutine(Flash(0.05f, 3));
         DamageResults(this.gameObject.tag);
 
         if (CharHealth < 0)
         {
             DeathResults(this.gameObject.tag);
             Destroy(this.gameObject);
+        }
+        else
+        {
+            DamageResults(this.gameObject.tag);
         }
     }
 
@@ -83,13 +95,19 @@ public class Character : MonoBehaviour, IDamageable
     }
 
     void DamageResults (string _tag)
-    {
-        StartCoroutine(Flash(0.05f, 3));
-        
+    {   
         if (_tag == "Player")
         {
             Debug.Log("player injured");
-        }   
+            audioOne.PlayOneShot(damageSound);
+
+        }  
+
+        if (_tag == "Enemy")
+        {
+            Debug.Log("enemy injured");
+            audioOne.PlayOneShot(damageSound);
+        }  
     }   
     
     void DeathResults (string _tag)
@@ -100,11 +118,14 @@ public class Character : MonoBehaviour, IDamageable
         if (_tag == "Player")
         {
             GameMaster.GM.GameOverManager();
+            audioTwo.PlayOneShot(deathSound);
+
         }
 
         if (_tag == "Enemy")
         {
-             ManagePrefs.MP.AddKillCount(1);
+            ManagePrefs.MP.AddKillCount(1);
+            audioTwo.PlayOneShot(deathSound);
         }   
     }
 }

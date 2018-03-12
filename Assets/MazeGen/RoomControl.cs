@@ -25,6 +25,7 @@ public class RoomControl : MonoBehaviour
     [Header("Room Settings")]
     public bool addRooms;
     public bool testmode;
+    public GameObject startPrefab;
     public GameObject exitPrefab;
     public GameObject lightPrefab;
     public RoomPrefabs roomPrefabs;
@@ -319,7 +320,13 @@ public class RoomControl : MonoBehaviour
         {
             var rc = GetComponentInChildren<RoomContents>();
             rc.DepositAtRewardPoint(exitPrefab, true);
-        }
+        }        
+        
+        // if (isStartingRoom)
+        // {
+        //     //var rc = GetComponentInChildren<RoomContents>();
+        //     //rc.DepositAtRewardPoint(startPrefab, false);
+        // }
 
         // Place a light if on the path to the exit
         if (isOnCompletionPath)

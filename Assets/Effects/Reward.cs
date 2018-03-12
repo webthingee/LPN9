@@ -18,7 +18,7 @@ public class Reward : MonoBehaviour
 
 	void Impact()
 	{
-		Instantiate(impactEffect, transform.position, transform.rotation);
+		Instantiate(impactEffect, transform.position, transform.rotation);        
 		Destroy(this.gameObject);
 	}
 }

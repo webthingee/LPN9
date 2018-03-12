@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Player : Character 
 {
-	protected override void Start () 
+    
+    protected override void Start () 
     {
         base.Start();
 	}
@@ -13,6 +14,7 @@ public class Player : Character
     {
         CharHealth -= Time.deltaTime / 100;
     }
+
     // void OnDestroy()
     // {
     //     Debug.Log("Destroyed");
